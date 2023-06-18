@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mood Board</title>
+  <style>
+    body {
+      font-family: Montserrat, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    h1, label, input, button {
+      font-family: Montserrat, monospace;
+    }
+    
+    #room {
+      width: 500px; /* Default width */
+      height: 300px; /* Default height */
+      border: 1px solid black;
+      margin-top: 20px;
+      position: relative;
+      overflow: hidden; /* Prevent images from overflowing */
+    }
+
+    #imageContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .room-image {
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+    
+    .room-image:nth-child(1) {
+      width: 320px;
+      height: 96px;
+    }
+    
+    .room-image:nth-child(2) {
+      width: 272px;
+      height: 132px;
+    }
+    
+    .room-image:nth-child(3) {
+      width: 118px;
+      height: 128px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mood Board</h1>
+  
+  <div id="container">
+    <form>
+      <label for="length">Length (in inches):</label>
+      <input type="number" id="length" min="1" step="1">
+      
+      <label for="width">Width (in inches):</label>
+      <input type="number" id="width" min="1" step="1">
+      
+      <button type="button" onclick="adjustRoomSize()">Adjust</button>
+      <button type="button" onclick="decorateRoom()">Decorate</button>
+    </form>
+  </div>
+  
+  <div id="room">
+    <div id="imageContainer"></div>
+  </div>
+  
+  <script>
+    function adjustRoomSize() {
+      var lengthInput = document.getElementById("length");
+      var widthInput = document.getElementById("width");
+      var room = document.getElementById("room");
+
+      var lengthInPixels = parseInt(lengthInput.value) * 4;
+      var widthInPixels = parseInt(widthInput.value) * 4;
+
+      room.style.width = lengthInPixels + "px";
+      room.style.height = widthInPixels + "px";
+    }
+
+    function decorateRoom() {
+      var imageContainer = document.getElementById("imageContainer");
+      imageContainer.innerHTML = ""; // Clear previous images
+
+      var imagePaths = [
+        "https://m.media-amazon.com/images/I/819PEEwJSuL._AC_SL1500_.jpg",
+        "https://m.media-amazon.com/images/I/71078w5G9lL._AC_SL1500_.jpg",
+        "https://m.media-amazon.com/images/I/61JvDj-YnYL._AC_SL1500_.jpg",
+        "https://m.media-amazon.com/images/I/61oteX4kHHL._AC_SL1500_.jpg",
+        "https://m.media-amazon.com/images/I/81xhCy8yQ6L._AC_SL1500_.jpg",
+        "https://m.media-amazon.com/images/I/71OSGBbTjvL._AC_SL1500_.jpg"
+      ]; // Replace with actual image URLs
+
+      // Split the images into three categories
+      var category1 = imagePaths.slice(0, 2);
+      var category2 = imagePaths.slice(2, 4);
+      var category3 = imagePaths.slice(4);
+
+      // Randomly select an image from each category
+      var selectedImage1 = getRandomElement(category1);
+      var selectedImage2 = getRandomElement(category2);
+      var selectedImage3 = getRandomElement(category3);
+
+      // Create image elements and add them to the room
+      var img1 = document.createElement("img");
+      img1.src = selectedImage1;
+      img1.classList.add("room-image");
+      img1.style.width = "320px";
+      img1.style.height = "96px";
+      imageContainer.appendChild(img1);
+
+      var img2 = document.createElement("img");
+      img2.src = selectedImage2;
+      img2.classList.add("room-image");
+      img2.style.width = "272px";
+      img2.style.height = "132px";
+      imageContainer.appendChild(img2);
+
+      var img3 = document.createElement("img");
+      img3.src = selectedImage3;
+      img3.classList.add("room-image");
+      img3.style.width = "118px";
+      img3.style.height = "128px";
+      imageContainer.appendChild(img3);
+    }
+
+    // Helper function to randomly select an element from an array
+    function getRandomElement(array) {
+      var randomIndex = Math.floor(Math.random() * array.length);
+      return array[randomIndex];
+    }
+  </script>
+</body>
+</html>
