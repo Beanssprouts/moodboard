@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mood Board</title>
+  <style>
+    body {
+      font-family: Montserrat, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    h1, label, input, button {
+      font-family: Montserrat, monospace;
+    }
+    
+    #room {
+      width: 500px; /* Default width */
+      height: 300px; /* Default height */
+      border: 1px solid black;
+      margin-top: 20px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1; /* Add z-index property */
+    }
+    
+    #imageContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .room-image {
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+    
+    .room-group {
+      position: absolute;
+    }
+
+    /* walls*/
+    .room-group:nth-child(1) {
+      width: 200px;
+      height: 200px;
+      top: 0%;
+      left: 0%;
+    }
+
+    /* wood Floors */
+    .room-group:nth-child(2) {
+      width: 200px;
+      height: 200px;
+      top: 50%;
+      left: 0%;
+    }
+
+    /* carpet */
+    .room-group:nth-child(3) {
+      width: 1000px;
+      height: 1000px;
+      top: 50%;
+      left: 25%;
+    }
+    
+    /* curtain */
+    .room-group:nth-child(4) {
+      width: 320px;
+      height: 96px;
+      top: 37%;
+      left: 52%;
+      transform: translate(-50%, -50%);
+    }  
+
+    /* painting */
+    .room-group:nth-child(5) {
+      width: 96px;
+      height: 144px;
+      top: 10%;
+      left: 10%;
+    }
+    
+
+     /* sofa */
+     .room-group:nth-child(6) {
+      width: 271px;
+      height: 132px;
+      top: 43%;
+      left: 22%;
+    }
+
+    /* chair*/
+    .room-group:nth-child(7) {
+      width: 118px;
+      height: 128px;
+      top: 10px; /* Vertically down from group one */
+      left: 10%;
+    }
+
+    /* coffee table*/
+    .room-group:nth-child(8) {
+      width: 288px;
+      height: 432px;
+      top: 70%;
+      left: 0%;
+    }
+
+    /* Coffee Table */
+    .room-group:nth-child(9) {
+      width: 157px;
+      height: 63px;
+      top: 67%;
+      left: 40%;
+    }
+
+    /* house plants */
+    .room-group:nth-child(10) {
+      width: 271px;
+      height: 132px;
+      top: 0%;
+      left: 77%;
+    }
+
+
+
+    #totalPrice {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mood Board</h1>
+  
+  <div id="container">
+    <form>
+      <label for="length">Length (in inches):</label>
+      <input type="number" id="length" min="1" step="1">
+      
+      <label for="width">Width (in inches):</label>
+      <input type="number" id="width" min="1" step="1">
+      
+      <button type="button" onclick="adjustRoomSize()">Adjust</button>
+      <button type="button" onclick="decorateRoom('decorate')">decorate</button>
+      <button type="button" onclick="decorateRoom('dark')">Dark</button>
+      <button type="button" onclick="decorateRoom('light')">Light</button>
+      <button type="button" onclick="decorateRoom('transitional')">Transitional</button>
+    </form>
+  </div>
+
+  <div id="totalPrice"></div>
+  
+  <div id="room">
+    <div id="imageContainer"></div>
+  </div>
+  
+  <script>
+    const prices = {
+     //light sofas 
+     "https://i.postimg.cc/RVJm9WkB/a-Photo-Room.png" : 1299.99,
+     "https://i.postimg.cc/26XpNYTy/b-Photo-Room.png" : 319.98,
+     "https://i.postimg.cc/zGn1b9D2/c-Photo-Room.png" : 259.98,
+     "https://i.postimg.cc/5tbWwn64/d-Photo-Room.png" : 529.99,
+     "https://i.postimg.cc/8cF21YnH/e-Photo-Room.png" : 1158.99,
+     "https://i.postimg.cc/zBfmQvC4/f-Photo-Room.png" : 858.00,
+     "https://i.postimg.cc/Y0JJjx5w/g-Photo-Room.png" : 219.99,
+     "https://i.postimg.cc/dVMY0qFT/h-Photo-Room.png" : 1277.57,
+     "https://i.postimg.cc/25GRThZ4/i-Photo-Room.png" : 1242.10,
+     "https://i.postimg.cc/nVg8dHCw/j-Photo-Room.png" : 984.97,
+     "https://i.postimg.cc/9F76Kv9X/k-Photo-Room.png" : 1139.93,
+
+      //darksofas 
+      "https://i.postimg.cc/kXSz2hWp/l-Photo-Room.png" : 219.99,
+      "https://i.postimg.cc/KvtpG32X/m-Photo-Room.png" : 379.99,
+      "https://i.postimg.cc/rsrntKRr/n-Photo-Room.png" : 447.13,
+      "https://i.postimg.cc/59hkWqDq/o-Photo-Room.png" : 159.99,
+      "https://i.postimg.cc/ZqbMDb2G/p-Photo-Room.png" : 1359.99,
+      "https://i.postimg.cc/6621P1bp/q-Photo-Room.png" : 599.99,
+      "https://i.postimg.cc/sX10snVK/r-Photo-Room.png" : 1171.65,
+      "https://i.postimg.cc/9QV8rXmD/s-Photo-Room.png" : 949.99,
+      "https://i.postimg.cc/mrm5xxGt/t-Photo-Room.png" : 1359.99,
+      "https://i.postimg.cc/vZzP9RT3/u-Photo-Room.png" : 749.99,
+      "https://i.postimg.cc/YSCdzXmk/v-Photo-Room.png" : 446.97,
+      "https://i.postimg.cc/KzKQdRNH/w-Photo-Room.png" : 279.70,
+      "https://i.postimg.cc/3RP97YfJ/x-Photo-Room.png" : 389.99,
+      "https://i.postimg.cc/05wcnKr6/y-Photo-Room.png" : 2018.84, 
+      "https://i.postimg.cc/QC1mdwvg/z-Photo-Room.png" : 199.99,
+
+      //lightchairs 
+      "https://i.postimg.cc/26ZCP5HV/0-Photo-Room.png" : 159.99, 
+      "https://i.postimg.cc/nhhK2Pw0/1.png" : 99.99,   
+      "https://i.postimg.cc/MTdSQjrM/2-Photo-Room.png" : 87.99, 
+      "https://i.postimg.cc/PrNt12Ht/3-Photo-Room.png" : 149.99, 
+      "https://i.postimg.cc/PfSXL0B3/4-Photo-Room.png" : 159.99, 
+      "https://i.postimg.cc/1z1shSqt/5-Photo-Room.png" : 125.99,  
+      "https://i.postimg.cc/Jz0JZBGF/6.png" : 1649.00, 
+      "https://i.postimg.cc/Fsqhp3F0/7-Photo-Room.png" : 148.98,  
+      "https://i.postimg.cc/qv345qgS/8-Photo-Room.png" : 199.99, 
+      "https://i.postimg.cc/XqWdCHCK/9.png" : 189.99, 
+      "https://i.postimg.cc/QCCrkxR6/10-Photo-Room.png" : 107.24, 
+      "https://i.postimg.cc/XNKwbbRs/11-Photo-Room-Photo-Room.png" : 103.39, 
+      "https://i.postimg.cc/fyPQHQsM/12-Photo-Room.png" : 129.99,  
+      "https://i.postimg.cc/kXnWMH9q/13-Photo-Room-Photo-Room.png" : 113.31,  
+      "https://i.postimg.cc/8PqVMGwH/14-Photo-Room.png" : 289.99, 
+      "https://i.postimg.cc/Y0xgf665/15-Photo-Room-Photo-Room.png" : 129.99, 
+      "https://i.postimg.cc/4xVR10ST/16-Photo-Room.png" : 114.99, 
+      "https://i.postimg.cc/qMjyNGMn/17-Photo-Room-Photo-Room.png" : 119.90, 
+      "https://i.postimg.cc/QtxLhdxX/18-Photo-Room.png" : 59.99,  
+      "https://i.postimg.cc/FRPMRX70/19-Photo-Room.png" : 76.00,  
+      "https://i.postimg.cc/3rqMQ7MT/20-Photo-Room.png" : 120.01, 
+      "https://i.postimg.cc/mkt01pHJ/21-Photo-Room.png" : 79.99,  
+      "https://i.postimg.cc/HnRFw00x/22-Photo-Room.png" : 109.99,   
+      "https://i.postimg.cc/K8Xd4Nvp/23-Photo-Room.png" : 58.96, 
+      "https://i.postimg.cc/654k9SwG/24-Photo-Room.png" : 135.99, 
+      
+      //dark chairs
+      "https://i.postimg.cc/g2LdwjW4/25-Photo-Room.png" : 76.99, 
+      "https://i.postimg.cc/KYXbtbcb/26-Photo-Room.png" : 147.99,  
+      "https://i.postimg.cc/L5sFm6Dt/27-Photo-Room.png" : 94.99,  
+      "https://i.postimg.cc/vBbdSv6S/28-Photo-Room.png" : 42.98, 
+      "https://i.postimg.cc/0QnqgJY5/29-Photo-Room.png" : 649.99, 
+      "https://i.postimg.cc/T1HM1MNZ/30-Photo-Room.png" : 209.99, 
+      "https://i.postimg.cc/ZR1M3Sb9/31-Photo-Room.png" : 264.78, 
+
+      //light tables 
+      "https://i.postimg.cc/hv6GpGV4/32-Photo-Room.png" : 89.99, 
+      "https://i.postimg.cc/mZ5hbmKx/33-Photo-Room.png" : 51.67, 
+      "https://i.postimg.cc/kgx5vqG9/34-Photo-Room.png" : 42.89, 
+      "https://i.postimg.cc/2Sp6WVz2/35-Photo-Room.png" : 189.16, 
+      "https://i.postimg.cc/pX5ryDtm/36-Photo-Room.png" : 218.01, 
+
+      //dark tables
+      "https://i.postimg.cc/7Y74F4zR/37-Photo-Room.png" : 31.13, 
+      "https://i.postimg.cc/wTK8crrQ/38-Photo-Room.png" : 74.99, 
+      "https://i.postimg.cc/dQZcCF50/39-Photo-Room.png" : 159.90, 
+      "https://i.postimg.cc/SxfhKGD7/40-Photo-Room.png" : 79.88, 
+      "https://i.postimg.cc/3NGMQjkG/41-Photo-Room.png" : 685.45,  
+      "https://i.postimg.cc/Sxh4qP7x/42-Photo-Room.png" : 27.94, 
+      "https://i.postimg.cc/MGZ8fjLk/43-Photo-Room.png" : 59.99,  
+      "https://i.postimg.cc/76f8mrDm/44-Photo-Room.png" : 55.63, 
+      "https://i.postimg.cc/cJDGRLqv/45-Photo-Room.png" : 89.99, 
+      "https://i.postimg.cc/X7wM28SS/46-Photo-Room.png" : 69.99, 
+      "https://i.postimg.cc/bw874tpG/47-Photo-Room.png" : 93.99, 
+      "https://i.postimg.cc/0Q6F7Gd4/48-Photo-Room.png" : 63.99, 
+      "https://i.postimg.cc/mgwv4ggm/49-Photo-Room.png" : 454.99, 
+      "https://i.postimg.cc/0NyLy16P/50-Photo-Room.png" : 42.98, 
+      "https://i.postimg.cc/fbq13qXX/51-Photo-Room.png" : 38.55, 
+      "https://i.postimg.cc/Hs1R7yJS/52-Photo-Room.png" : 75.51, 
+      "https://i.postimg.cc/MHVLFWLb/53-Photo-Room.png" : 160.16, 
+      "https://i.postimg.cc/L41GXTsY/54-Photo-Room.png" : 25.45, 
+      "https://i.postimg.cc/85q34FZz/55-Photo-Room.png" : 119.99, 
+      "https://i.postimg.cc/Kv7V78Bm/56-Photo-Room.png" : 89.99, 
+
+      //light paintings 
+      "https://i.postimg.cc/7ZPbNbG4/57-Photo-Room.png" : 31.50,  
+      "https://i.postimg.cc/WzP1q4LQ/58-Photo-Room.png" : 6.99, 
+      "https://i.postimg.cc/CLSKFd48/59-Photo-Room.png" : 32.97, 
+      "https://i.postimg.cc/Hn1zjFY6/610c-2-FL9a-L-AC-SL1000-Photo-Room.png" : 24.99, 
+      "https://i.postimg.cc/pVDTbKKx/61-Photo-Room.png" : 19.53, 
+      "https://i.postimg.cc/fLdbb9Fc/62-Photo-Room.png" : 32.99, 
+      "https://i.postimg.cc/MpGKQ4NK/63-Photo-Room.png" : 130.09,  
+      "https://i.postimg.cc/1Xc5GZy4/64-Photo-Room.png" : 28.99, 
+      "https://i.postimg.cc/Wb81tj9H/65-Photo-Room.png" : 43.39, 
+      "https://i.postimg.cc/bwFYHgf0/66-Photo-Room.png" : 32.99, 
+      "https://i.postimg.cc/vmgYPnGJ/67-Photo-Room.png" : 23.10, 
+
+      //dark paintings 
+      "https://i.postimg.cc/DwTFQzZg/68-Photo-Room.png" : 28.99, 
+      "https://i.postimg.cc/4xQGWTHT/69-Photo-Room.png" : 28.99, 
+      "https://i.postimg.cc/9095Z3HK/70-Photo-Room.png" :  9.97,  
+      "https://i.postimg.cc/1t218m2D/71-Photo-Room.png" : 99.99,  
+      "https://i.postimg.cc/ZRChYB7T/72-Photo-Room.png" : 17.98, 
+      "https://i.postimg.cc/Kc3ydT3f/73-Photo-Room.png" : 29.99,  
+      "https://i.postimg.cc/y8jqFX21/74-Photo-Room.png" : 29.80, 
+      "https://i.postimg.cc/Gh01rpkC/75-Photo-Room.png" : 13.90, 
+      "https://i.postimg.cc/DzfTDY14/76-Photo-Room.png" : 69.99, 
+      "https://i.postimg.cc/VLjPNcRb/77-Photo-Room.png" : 43.88, 
+      "https://i.postimg.cc/y8s4grQp/78-Photo-Room.png" : 54.99, 
+      "https://i.postimg.cc/cJLpTtNQ/79-Photo-Room.png" : 16.90, 
+      "https://i.postimg.cc/NMyWvhFF/80-Photo-Room.png" : 19.99, 
+      "https://i.postimg.cc/nVD6dtNw/81-Photo-Room.png" : 59.99, 
+      "https://i.postimg.cc/50ZDxPQ3/82-Photo-Room.png" : 12.90,  
+      "https://i.postimg.cc/X7Ktbkjf/83-Photo-Room.png" : 14.99, 
+      "https://i.postimg.cc/7h0dbggy/84-Photo-Room.png" : 32.99, 
+      "https://i.postimg.cc/T3RFY51Z/85-Photo-Room.png" : 38.99, 
+      "https://i.postimg.cc/X76tmzbN/86-Photo-Room.png" : 33.99,  
+      "https://i.postimg.cc/DwBDWfbm/87-Photo-Room.png" : 9.09, 
+      "https://i.postimg.cc/mrkn7xQj/88-Photo-Room.png" : 89.90, 
+      "https://i.postimg.cc/NFqPh5ZC/89-Photo-Room.png" : 14.99, 
+      "https://i.postimg.cc/Gpf5QMKC/90-Photo-Room.png" : 17.49, 
+
+      //light carpets 
+      "https://m.media-amazon.com/images/I/912EmcCjVqL._AC_SL1500_.jpg" : 44.99,  
+      "https://m.media-amazon.com/images/I/A1mMQ4ru2ZL._AC_SL1500_.jpg" : 50.14, 
+      "https://m.media-amazon.com/images/I/916b8GBKW6L._AC_SL1500_.jpg" : 61.59, 
+
+      //dark carpets 
+      "https://m.media-amazon.com/images/I/A1RLNleVxiL._AC_SL1500_.jpg" : 160.00, 
+      "https://m.media-amazon.com/images/I/A1V-JFuZB5L._AC_SL1500_.jpg" : 65.99, 
+      "https://m.media-amazon.com/images/I/81lC5sskpbL._AC_SL1500_.jpg" : 79.99, 
+
+      //light curtains 
+      "https://i.postimg.cc/SRsVfpfL/127-Photo-Room.png" : 47.05, 
+      "https://i.postimg.cc/T140kHtz/128-Photo-Room.png" : 35.28, 
+      "https://i.postimg.cc/QN4fxHjf/129-Photo-Room.png" : 23.99, 
+      "https://i.postimg.cc/BQjM8464/130-Photo-Room.png" : 23.99, 
+
+      //dark curtains 
+      "https://i.postimg.cc/G3Kp5Tkh/131-Photo-Room.png" : 35.28, 
+      "https://i.postimg.cc/fTgRw42G/132-Photo-Room.png" : 23.99,  
+      "https://i.postimg.cc/2Sb8yHgV/133-Photo-Room.png" : 23.99, 
+
+      //houseplants 
+     "https://i.postimg.cc/hv7Pdkxh/100-jpg-Photo-Room.png" : 29.99,
+     "https://i.postimg.cc/Rh3qT6rS/91-jpg-Photo-Room.png": 20.99,
+     "https://i.postimg.cc/s2VXN0F0/92-jpg-Photo-Room.png": 7.98,
+     "https://i.postimg.cc/0NcQRdP5/93-Photo-Room.png": 16.98,
+     "https://i.postimg.cc/yxwxp1BF/94-jpg-Photo-Room.png": 27.99,
+     "https://i.postimg.cc/sDhvQh9K/95-jpg-Photo-Room.png": 27.99,
+     "https://i.postimg.cc/Dw3mqwxh/96-Photo-Room.png": 22.99,
+     "https://i.postimg.cc/G3N4mQYH/97-jpg-Photo-Room.png": 13.99,
+     "https://i.postimg.cc/V6vNYrkq/98-jpg-Photo-Room.png": 30.99,
+     "https://i.postimg.cc/Vk9v4PhC/99-Photo-Room.png": 49.99,
+
+     "https://i.postimg.cc/024mwvwd/101-Photo-Room.png": 11.22,
+     "https://i.postimg.cc/g2RwLZdm/102-jpg-Photo-Room.png": 26.84,
+     "https://i.postimg.cc/zvBby2Dc/103-jpg-Photo-Room.png": 9.8,
+     "https://i.postimg.cc/jjbDHSdN/104-jpg-Photo-Room.png": 33.99,
+     "https://i.postimg.cc/1zrfJ1fd/105-jpg-Photo-Room.png": 32.99,
+     "https://i.postimg.cc/QxFKszyB/106-Photo-Room.png": 7.04,
+     "https://i.postimg.cc/tRSnKb2Q/107-jpg-Photo-Room.png": 99,
+     "https://i.postimg.cc/HnhJX0Vs/108-jpg-Photo-Room.png": 24.63,
+     "https://i.postimg.cc/m2KzrSvm/109-jpg-Photo-Room.png": 19.99,
+     "https://i.postimg.cc/QtNVzY7d/110-jpg-Photo-Room.png": 14.99,
+
+     "https://i.postimg.cc/QNq4Tfhx/111-jpg-Photo-Room.png": 99.87,
+     "https://i.postimg.cc/MKKsb1p0/112-jpg-Photo-Room.png": 39.99,
+     "https://i.postimg.cc/NMcDyHnH/113-jpg-Photo-Room.png": 20.99,
+     "https://i.postimg.cc/zvDk718D/114-jpg-Photo-Room.png": 16.99,
+     "https://i.postimg.cc/7Z5mjD7f/115-Photo-Room.png": 15.87,
+     "https://i.postimg.cc/JzSPLgcK/116-jpg-Photo-Room.png": 23.99,
+     "https://i.postimg.cc/ydyP0Nqr/117-jpg-Photo-Room.png": 9.49,
+     "https://i.postimg.cc/WbW59tdB/118-jpg-Photo-Room.png": 17.99,
+     "https://i.postimg.cc/9fT1FpL2/119-jpg-Photo-Room.png": 8.99,
+     "https://i.postimg.cc/ZnfxDD58/120-jpg-Photo-Room.png": 17.99,
+     
+     "https://i.postimg.cc/43Bv3Spr/121-jpg-Photo-Room.png": 19.99,
+     "https://i.postimg.cc/fW6PZVzY/122-jpg-Photo-Room.png": 23.5,
+     "https://i.postimg.cc/pybz7btn/123-jpg-Photo-Room.png": 11.99,
+     "https://i.postimg.cc/HkmPcF7x/124-jpg-Photo-Room.png": 17.99,
+     "https://i.postimg.cc/PrYRqdJ9/125-Photo-Room.png": 15.37,
+     "https://i.postimg.cc/T2ysZV6R/126-Photo-Room.png": 31.5,
+
+     //Dark wood floor
+     "https://i.postimg.cc/JzDknD65/kettle-keep-oak-trafficmaster-laminate-wood-flooring-360831-27096-64-600-jpg-Photo-Room.png" : 0, 
+
+     //Light wood floor 
+     "https://i.postimg.cc/8k4WnVfM/134533f-Photo-Room.png": 0, 
+
+     //light walls 
+     "https://i.postimg.cc/Px4gwq3S/39kj69-0-Photo-Room.png": 0, 
+
+     //dark walls 
+     "https://i.postimg.cc/mkg0NGKB/CDC4-B5-grande-Photo-Room.png": 0,
+
+     //transitional sofa 
+     //transitional sofa 
+     "https://i.postimg.cc/5tstMvN4/CB-20230713-Upholstery-Collections-Bucktown1-Photo-Room.png": 3997, 
+     "https://i.postimg.cc/2yRyHYSh/CB-20230713-Upholstery-Collections-Rivera1-Photo-Room.png": 2199, 
+     "https://i.postimg.cc/CxmZw9cp/CB-20230713-Upholstery-Collections-Wythe1-Photo-Room.png": 3899, 
+     "https://i.postimg.cc/VL9rVJM6/d-COL-20230629-Upholstery-Angolare-Sectional-Photo-Room.png": 5096, 
+     "https://i.postimg.cc/wMXvZr1P/d-COL-20230629-Upholstery-Aris-Sofa-Photo-Room.png": 1599, 
+     "https://i.postimg.cc/mgbzfTNS/d-COL-20230629-Upholstery-Avondale-Sofa-Photo-Room.png": 1749, 
+     "https://i.postimg.cc/SKPJMC0Z/d-COL-20230629-Upholstery-Axis-Sectional-Photo-Room.png": 2848, 
+     "https://i.postimg.cc/7YNhNp8J/d-COL-20230629-Upholstery-Barrett-Sectional-Photo-Room.png": 2099, 
+     "https://i.postimg.cc/bNPdkqMj/d-COL-20230629-Upholstery-Bedford-Sofa-Photo-Room.png": 3899, 
+     "https://i.postimg.cc/fbVbDy3Y/d-COL-20230629-Upholstery-Bowen-Sofa-Photo-Room.png": 4499, 
+     "https://i.postimg.cc/D0Tfrcxc/d-COL-20230629-Upholstery-Cambria-Sofa-Photo-Room.png": 2199, 
+     "https://i.postimg.cc/Dfrw2tzp/d-COL-20230629-Upholstery-Cavett-Leather-Photo-Room.png": 1999, 
+     "https://i.postimg.cc/0292rcMk/d-COL-20230629-Upholstery-Chiltern-Sofa-Photo-Room.png": 2799, 
+     "https://i.postimg.cc/SKYmHP5r/d-COL-20230629-Upholstery-Crawford-Sofa-Photo-Room.png": 2199, 
+     "https://i.postimg.cc/MKtZBVVy/d-COL-20230629-Upholstery-Ever-Sofa-Photo-Room.png": 2499, 
+     "https://i.postimg.cc/8z01KGyc/d-COL-20230629-Upholstery-Fuller-Sofa-Photo-Room.png": 4349, 
+     "https://i.postimg.cc/5yb1Y2t7/d-COL-20230629-Upholstery-Gather-Sectional-Photo-Room.png": 2928, 
+     "https://i.postimg.cc/DfP7VLCt/d-COL-20230629-Upholstery-Gather-Wood-Base-Sectional-Photo-Room.png": 4098, 
+     "https://i.postimg.cc/hP4cKv6h/d-COL-20230629-Upholstery-Hague-Sofa-Photo-Room.png": 1299, 
+     "https://i.postimg.cc/wjZp5Vvs/d-COL-20230629-Upholstery-Horizon-Sofa-Photo-Room.png": 1700, 
+     "https://i.postimg.cc/0Qq1Fy7k/d-COL-20230629-Upholstery-Infiniti-Sofa-Photo-Room.png": 1499, 
+     "https://i.postimg.cc/FRgX4Xxj/d-COL-20230629-Upholstery-Jesper-Sofa-Photo-Room.png": 1999, 
+     "https://i.postimg.cc/zvxmyw6v/d-COL-20230629-Upholstery-Leisure-Sofa-Photo-Room.png": 3200, 
+     "https://i.postimg.cc/RV05j8JH/d-COL-20230629-Upholstery-Lotus-Sectional-Photo-Room.png": 4847, 
+     "https://i.postimg.cc/WbfLjn0f/d-COL-20230629-Upholstery-Lounge-Sofa-Photo-Room.png": 1749, 
+     "https://i.postimg.cc/JzDwhkq7/d-COL-20230629-Upholstery-Monahan-Sofa-Photo-Room.png": 2899, 
+     "https://i.postimg.cc/s27tYCqt/d-COL-20230629-Upholstery-Notch-Sectional-Photo-Room.png": 2399, 
+     "https://i.postimg.cc/PxM97zty/d-COL-20230629-Upholstery-Oceanside-Sectional-Photo-Room.png": 2848, 
+     "https://i.postimg.cc/3NJVQ4NT/d-COL-20230629-Upholstery-Pacific-Sectional-Photo-Room.png": 2999, 
+     "https://i.postimg.cc/xT8hszBG/d-COL-20230629-Upholstery-Petrie-Sofa-Photo-Room.png": 1699, 
+     "https://i.postimg.cc/HsNKFLCq/d-COL-20230629-Upholstery-Peyton-Sectional-Photo-Room.png": 2299, 
+     "https://i.postimg.cc/8zr3GVpj/d-COL-20230629-Upholstery-Rollins-Sofa-Photo-Room.png": 3399, 
+     "https://i.postimg.cc/zfCcLSRN/d-COL-20230629-Upholstery-Sinuous-Sectional-Photo-Room.png": 2898, 
+     "https://i.postimg.cc/vTBqSJ28/d-COL-20230629-Upholstery-Tidal-Sectional-Photo-Room.png": 3218, 
+     "https://i.postimg.cc/C5QPyc9G/d-COL-20230629-Upholstery-Timson-Sofa-Photo-Room.png": 1899, 
+     "https://i.postimg.cc/PrCVbk82/d-COL-20230629-Upholstery-Unwind-Sectional-Photo-Room.png": 3597, 
+     "https://i.postimg.cc/L8fy7BDP/d-COL-20230629-Upholstery-Wells-Leather-Photo-Room.png": 2999, 
+     "https://i.postimg.cc/k5vTMJkX/d-COL-20230629-Upholstery-Willow-Sofa-Photo-Room.png": 2149, 
+
+          //transitional chairs 
+     "https://i.postimg.cc/yNZ7vjP8/alex-bordeaux-velvet-accent-chair-Photo-Room.png": 1399.00, 
+      "https://i.postimg.cc/LXF27PCB/alva-wingback-accent-chair-Photo-Room.png": 1299.00,
+      "https://i.postimg.cc/vZ1yZhCt/ambie-walnut-wood-accent-chair-by-jake-arnold-Photo-Room.png": 1299.00,
+      "https://i.postimg.cc/rmGMLp76/axis-leather-swivel-chair-Photo-Room.png": 2199.00,
+      "https://i.postimg.cc/NFgYGcwK/barrett-ii-leather-track-arm-swivel-chair-Photo-Room.png": 2199.00, 
+      "https://i.postimg.cc/MphSMRS2/barrett-track-arm-chair-Photo-Room.png": 949.00,
+    "https://i.postimg.cc/VLk13mRT/bauer-thames-cream-white-accent-chair-with-performance-fabric-Photo-Room.png": 1149.00,
+    "https://i.postimg.cc/tCvybwvg/bisou-accent-chair-Photo-Room.png": 999.00,
+    "https://i.postimg.cc/bvkjQJyG/blake-grey-wash-lounge-chair-with-cushion-Photo-Room.png": 999.00, 
+    "https://i.postimg.cc/QtDZS3Cf/broome-upholstered-olive-green-dining-chair-by-jake-arnold-Photo-Room.png":599.00, 
+    "https://i.postimg.cc/qqMVVx8n/calder-chair-Photo-Room.png":1299.00,
+    "https://i.postimg.cc/26GMwLP5/carlin-antique-black-leather-and-cane-accent-chair-Photo-Room.png":1299.00,
+    "https://i.postimg.cc/7Lgp5W90/cavett-leather-wood-frame-chair-Photo-Room.png":2199.00,
+    "https://i.postimg.cc/x8F7rDjD/cigar-accent-chair-Photo-Room.png":699.00,
+    "https://i.postimg.cc/v8PCx9rq/coronado-chair-Photo-Room.png":1399.00,
+    "https://i.postimg.cc/3Nw6bJTF/crawford-accent-chair-Photo-Room.png":1299.00,
+    "https://i.postimg.cc/D0mjPjrC/crawford-slipcover-chair-Photo-Room.png":1299.00,
+    "https://i.postimg.cc/vBYScHcw/crawford-slipcovered-accent-chair-with-box-pleated-skirt-Photo-Room.png":1899.00,
+    "https://i.postimg.cc/d15NdPyk/drew-small-leather-swivel-accent-chair-Photo-Room.png":1099.00,
+     "https://i.postimg.cc/NGPPjttZ/drew-small-swivel-chair-Photo-Room.png":1099.00,
+    "https://i.postimg.cc/cLfDh83N/faroe-accent-chair-Photo-Room.png":999.00,
+    "https://i.postimg.cc/MGD922tP/fernie-accent-chair-lammy-grey-Photo-Room.png":1299.00,
+    "https://i.postimg.cc/rmBSbM7t/fernie-accent-chair-lammy-toast-Photo-Room.png":1299.00,
+    "https://i.postimg.cc/bYn0nS20/fernie-accent-chair-Photo-Room.png":1299.00,
+    "https://i.postimg.cc/nLZ3PcK9/fields-cane-back-white-wash-accent-chair-Photo-Room.png":999.00,
+    "https://i.postimg.cc/nr6kYHcz/fields-cane-back-white-wash-and-natural-accent-chair-Photo-Room.png":999.00,
+    "https://i.postimg.cc/hvJsdJn6/fields-cane-black-and-white-chair-Photo-Room.png":999.00,
+    "https://i.postimg.cc/ZYgVhLFS/fields-chair-charcoal-Photo-Room.png":999.00,
+    "https://i.postimg.cc/28ZTjB2B/fields-chair-white-Photo-Room.png":999.00,
+    "https://i.postimg.cc/kgPs2XpY/gather-petite-swivel-chair-Photo-Room.png":1199.00,
+    "https://i.postimg.cc/3xjBmQM8/gather-small-swivel-chair-Photo-Room.png":1049.00,
+    "https://i.postimg.cc/mr8yp32K/gather-swivel-chair-Photo-Room.png":1149.00,
+    "https://i.postimg.cc/nLH11SZv/hague-mid-century-lounge-chair-Photo-Room.png":849.00,
+    "https://i.postimg.cc/NFr80W7w/halston-tufted-black-leather-accent-chair-Photo-Room.png":1699.00,
+    "https://i.postimg.cc/8sQRfttf/harper-shearling-accent-chair-Photo-Room.png":1299.00,
+    "https://i.postimg.cc/SQXH8Rgm/henning-leather-accent-chair-Photo-Room.png":1599.00,
+    "https://i.postimg.cc/PfB9MH7Y/infiniti-swivel-chair-2-Photo-Room.png":1199.00,
+    "https://i.postimg.cc/zXKMtMmM/infiniti-swivel-chair-Photo-Room.png":1199.00,
+    "https://i.postimg.cc/FKmQ2rZ5/particuliere-shearling-accent-chair-by-athena-calderone-Photo-Room-Photo-Room.png":2699.00,
+    "https://i.postimg.cc/K8bWdNxY/leisure-power-recliner-chair-Photo-Room.png":1799.00,
+    "https://i.postimg.cc/HLshLkJD/lounge-chair-and-a-half-Photo-Room.png":1249.00,
+    "https://i.postimg.cc/T3csGD3J/lounge-deep-chair-and-a-half-Photo-Room.png":1279.00,
+    "https://i.postimg.cc/Gp7STnYB/lounge-deep-leather-chair-Photo-Room.png":2199.00,
+    "https://i.postimg.cc/zBy2n2Sx/lounge-leather-swivel-chair-Photo-Room.png":2099.00,
+    "https://i.postimg.cc/vBCqX70b/lounge-small-swivel-chair-2-Photo-Room.png":2199.00,
+    "https://i.postimg.cc/fyXHP3PX/lounge-small-swivel-chair-Photo-Room.png":949.00,
+    "https://i.postimg.cc/gkFtZDwK/medoc-swivel-chair-Photo-Room.png":1199.00,
+    "https://i.postimg.cc/7Y3sM20r/michi-chair-Photo-Room.png":1199.00,
+    "https://i.postimg.cc/5ycg84tt/momo-accent-chair-3-Photo-Room.png":699.00,
+    "https://i.postimg.cc/ZRvj9B4g/momo-accent-chair-Photo-Room.png":999.00,
+    "https://i.postimg.cc/5tRnNqdL/momo-accent-chair2-Photo-Room.png":999.00,
+    "https://i.postimg.cc/5yw33hHS/muirfield-sculptural-metal-accent-chair2-Photo-Room.png":999.00,
+    "https://i.postimg.cc/QN50hT6K/navarro-ash-wood-and-leather-accent-chair2-Photo-Room.png":1699.00,
+    "https://i.postimg.cc/vHsXBZjq/new-family3-Photo-Room.png":1499.00,
+    "https://i.postimg.cc/rpKNb00m/nora-tub-chair3-Photo-Room.png":999.00,
+    "https://i.postimg.cc/0ytCcdNF/oceanside-leather-deep-seat-swivel-chair2-Photo-Room.png":2299.00,
+    "https://i.postimg.cc/2j4FPf64/ojai-accent-chair-leather-Photo-Room.png":2199.00,
+    "https://i.postimg.cc/N09RD3S2/ojai-accent-chair-shearling-Photo-Room.png":1499.00,
+    "https://i.postimg.cc/gksy2q3j/ojai-upholstered-wood-frame-accent-chair-Photo-Room.png":2199.00,
+    "https://i.postimg.cc/T3Hrrd7X/ojai-upholstered-wood-frame-accent-chair2-Photo-Room.png":799.00,
+    "https://i.postimg.cc/htGLzz0r/pacific-ch-dd-Photo-Room.png":799.00,
+    "https://i.postimg.cc/wMcXJDPW/pacific-chair-leather-Photo-Room.png":1299.00,
+    "https://i.postimg.cc/DZ1Lkq22/particuliere-shearling-accent-chair-by-athena-calderone-Photo-Room.png":2399.00,
+    "https://i.postimg.cc/BvrHVhfY/pelle-leather-accent-chair-Photo-Room.png":1899.00,
+    "https://i.postimg.cc/PfzYSz3y/petrie-velvet-mid-century-chair-Photo-Room.png":1899.00,
+    "https://i.postimg.cc/T19bhfLF/polly-sand-brown-accent-chair-Photo-Room.png":899.00,
+    "https://i.postimg.cc/DyxsTfKb/polly-umber-black-leather-accent-chair-Photo-Room.png":1699.00,
+    "https://i.postimg.cc/qMJnShWT/pose-leather-chair-grey-wash-Photo-Room.png":1599.00,
+    "https://i.postimg.cc/GmNy4MtL/pose-leather-chair-natural-Photo-Room.png":999.00,
+    "https://i.postimg.cc/bwdnNXzV/pose-natural-accent-chair-Photo-Room.png":1599.00,
+    "https://i.postimg.cc/GpysGkTk/powell-lounge-chair-Photo-Room.png":899.00,
+    "https://i.postimg.cc/NMv245RZ/reggie-black-leather-accent-chair2-Photo-Room.png":2099.00,
+    "https://i.postimg.cc/WzXDT8xP/rivera-chair-Photo-Room.png":899.00,
+    "https://i.postimg.cc/dQBZ2Q3S/rivera-chair2-Photo-Room.png":899.00,
+    "https://i.postimg.cc/9FQRJ3qX/rivera-chair3-Photo-Room.png":899.00,
+    "https://i.postimg.cc/yYpJGfFm/rivera-chair4-Photo-Room.png":899.00,
+    "https://i.postimg.cc/K8d1GRp4/rodin-white-boucle-dining-chair-by-athena-calderone-Photo-Room.png":499.00,
+    "https://i.postimg.cc/N0m55BZD/rumford-accent-chair-by-jake-arnold-Photo-Room.png":1399.00,
+    "https://i.postimg.cc/Y9x0z8rm/sculpt-dark-blue-velvet-accent-chair-Photo-Room.png":899.00,
+    "https://i.postimg.cc/FRv1Sw44/sensorio-swoop-arm-velvet-accent-chair-by-athena-calderone-Photo-Room.png":899.00, 
+    "https://i.postimg.cc/prXTG8rc/sutter-white-boucle-dining-chair-Photo-Room.png":749.00,
+    "https://i.postimg.cc/xjtqkspw/tillie-grande-swivel-chair-Photo-Room.png":1499.00,
+    "https://i.postimg.cc/W4G1sSJf/tillie-swivel-chair-Photo-Room.png":1299.00,
+    "https://i.postimg.cc/W3Spk38G/tyson-sienna-brown-leather-accent-chair-Photo-Room.png":1899.00,
+    "https://i.postimg.cc/66j568yw/valen-swivel-accent-chair-Photo-Room.png":1299.00,
+    "https://i.postimg.cc/T14Rt4Zh/valen-swivel-accent-chair2-Photo-Room.png":1299.00,
+    "https://i.postimg.cc/ZKWYWJdN/valen-swivel-accent-chair3-Photo-Room.png":1299.00,
+    "https://i.postimg.cc/HxWddmmV/wells-chair-with-natural-leg-finish-Photo-Room.png":1099.00,
+    "https://i.postimg.cc/43QsDdrD/wells-leather-tuxedo-chair-Photo-Room.png":1899.00,
+    "https://i.postimg.cc/Fskm9GMg/wells-vegan-silicone-leather-chair-Photo-Room.png":1799.00,
+    "https://i.postimg.cc/HWhdDFhk/wells-vegan-silicone-leather-chair2-Photo-Room.png":1799.00,
+    "https://i.postimg.cc/PJ9jW8ww/wells-vegan-silicone-leather-chair3-Photo-Room.png":1799.00,
+    "https://i.postimg.cc/mgx4hCRx/wells-vegan-silicone-leather-chair4-Photo-Room.png":1799.00,
+    "https://i.postimg.cc/MpySBHKn/williams-chair-Photo-Room.png":1199.00,
+    "https://i.postimg.cc/Gpd1xRHq/wythe-leather-chair-Photo-Room.png":2299.00,
+    "https://i.postimg.cc/9MN52q1n/wythe-leather-chair2-Photo-Room.png":2299.00,
+    "https://i.postimg.cc/8cq2JQ2d/wythe-leather-chair3-Photo-Room.png":2299.00,
+    "https://i.postimg.cc/BQF9WbFm/wythe-leather-chair4-Photo-Room.png":2299.00,
+    "https://i.postimg.cc/Gm10bRJd/wythe-leather-chair5-Photo-Room.png":2299.00,
+    "https://i.postimg.cc/x1GwCZtH/wythe-leather-chair6-Photo-Room.png":2299.00,
+
+    //transitional tables 
+      "https://i.postimg.cc/0NH849M7/Baja-Console-Tbl-Nat-SOSSS22-Photo-Room.png": 799.00, 
+      "https://i.postimg.cc/vBgQFCfk/baja-grey-rectangular-coffee-table-Photo-Room.png": 699.00, 
+       "https://i.postimg.cc/tTK9XDzT/baja-natural-rectangular-coffee-table-Photo-Room.png": 799.00,
+       "https://i.postimg.cc/fTjMNcSz/bomen-black-oak-console-table-Photo-Room.png": 1599.00,   
+       "https://i.postimg.cc/Prkd93xV/damen-marble-coffee-table-with-black-base-Photo-Room.png": 1699.00,
+       "https://i.postimg.cc/YCrMqvQ1/dillon-spalted-primavera-round-wood-coffee-table-Photo-Room.png": 1899.00,
+       "https://i.postimg.cc/vZ0M1GvC/echelon-console-table-Photo-Room.png": 499.00,
+       "https://i.postimg.cc/LshSLGC5/fernando-metal-drum-coffee-table-Photo-Room.png": 899.00,
+       "https://i.postimg.cc/C1qV6kVV/fernando-round-Photo-Room.png": 299.00,
+       "https://i.postimg.cc/BbfGWbqP/homage-round-white-oak-wood-and-marble-coffee-table-Photo-Room.png": 1099.00,
+       "https://i.postimg.cc/Vv9Pzw6G/intarsia-natural-console-table-Photo-Room.png": 1499.00,
+       "https://i.postimg.cc/ZY6S88c8/meadow-grasscloth-coffee-table-Photo-Room.png": 1099.00,
+       "https://i.postimg.cc/4NZTBYLr/nero-white-marble-accent-table-Photo-Room.png": 299.00,
+       "https://i.postimg.cc/rFJ2bq7z/oro-natural-walnut-wood-tiered-side-table-Photo-Room.png": 599.00,
+       "https://i.postimg.cc/GmmnnZ1K/pebble-white-concrete-coffee-table-by-leanne-ford-Photo-Room.png": 999.00,
+       "https://i.postimg.cc/0yXRkcks/prost-small-metal-drink-table-Photo-Room.png": 159.00,
+       "https://i.postimg.cc/LsqdnL5Z/sassolino-burl-wood-side-table-by-athena-calderone-Photo-Room.png": 599.00,
+       "https://i.postimg.cc/Pq0gZJvV/sassolino-concrete-and-burl-wood-coffee-table-by-athena-calderone-Photo-Room.png": 1599.00,
+       "https://i.postimg.cc/LXfrVSz9/silviano-84-iron-console-table-Photo-Room.png": 1499.00,
+       "https://i.postimg.cc/kGmL1Hcx/terra-rctngl-cfe-tbl-natural-Photo-Room.png": 999.00,
+       "https://i.postimg.cc/kGmL1Hcx/terra-rctngl-cfe-tbl-natural-Photo-Room.png": 1299.00,
+       "https://i.postimg.cc/XqkmTgHt/troupe-rectangular-pine-coffee-table-Photo-Room.png": 1199.00,
+       "https://i.postimg.cc/dQ2bkqsn/troupe-round-coffee-table-Photo-Room.png": 1899.00,
+       "https://i.postimg.cc/zXq9T93N/troupe-square-coffee-table-Photo-Room.png": 1499.00,
+       "https://i.postimg.cc/qMQWwjC3/valo-72-pine-wood-console-table-Photo-Room.png": 1499.00,
+       "https://i.postimg.cc/8z09Qc4k/vander-natural-wood-end-table-Photo-Room.png": 499.00,
+       "https://i.postimg.cc/kg4zpKxh/vander-rectangular-natural-wood-coffee-table-Photo-Room.png": 999.00,
+       "https://i.postimg.cc/nL95HxS4/vernon-natural-72-console-table-Photo-Room.png": 1399.00,
+       "https://i.postimg.cc/tT0cJc8L/vernon-natural-wood-side-table-with-shelf-Photo-Room.png": 499.00,
+       "https://i.postimg.cc/4dzS95gn/vernon-rctng-cfetbl-nt-nonfsc-Photo-Room.png": 1399.00,
+       "https://i.postimg.cc/Bb4wcKSp/willy-charcoal-pedestal-coffee-table-Photo-Room.png": 999.00,
+       "https://i.postimg.cc/NFDCNjLc/willy-charcoal-pedestal-side-table-Photo-Room.png": 399.00,
+
+       //transitional paintings 
+       "https://i.postimg.cc/h4QBwwn0/abstract-large-framed-wall-art-Photo-Room.png": 329.00,
+    "https://i.postimg.cc/qv4HNv3m/alligator-framed-wall-art-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/pLTkcNbW/framed-baby-alpaca-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/NMh405yF/framed-baby-bunny-tail-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/tgnkyh48/framed-baby-bunny-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/nzv19p7k/framed-baby-donkey-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/Bb4BxkBG/framed-baby-elephant-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/SRd7VdgY/framed-baby-fox-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/ryNJ8yqy/framed-baby-hedgehog-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/HsWtjGLw/framed-baby-penguin-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/RZNQQcKq/framed-baby-sea-otter-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/Qx6JT6BR/framed-baby-zebra-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/sXBtkBk2/baseball-mitt-framed-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/CKr3rC6t/basketball-hoop-framed-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/TY86X9Yv/be-your-own-sunshine-framed-wall-art-Photo-Room.png": 59.00,
+    "https://i.postimg.cc/Cx7TkpCw/bird-belly-framed-wall-art-Photo-Room.png": 349.00,
+    "https://i.postimg.cc/bNQjYtsD/black-and-white-baseball-mitt-framed-wall-art-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/Jn99Mr85/black-and-white-basketball-court-framed-wall-art-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/jjjVh3vP/black-and-white-soccer-net-framed-wall-art-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/qB3PQ3cb/bloom-framed-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/5yLDthNd/blue-footed-bird-framed-wall-art-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/TYvZs3CR/blue-mediation-by-wendover-art-group-dark-blue-paint-35x26-framed-wall-art-print-Photo-Room.png": 699.00,
+    "https://i.postimg.cc/28dPNNKn/cat-framed-wall-art-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/6p9F9bkg/city-framed-wall-art-Photo-Room.png": 329.00,
+    "https://i.postimg.cc/TP1SbLYc/cloud-landscape-framed-wall-art-Photo-Room.png": 399.00,
+    "https://i.postimg.cc/wBrrQq1Y/dissemblance-i-framed-beige-wall-art-print-45-25x66-25-Photo-Room.png": 1999.00,
+    "https://i.postimg.cc/LXfxkzdj/dog-framed-wall-art-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/mrKdFmnb/dragonfly-framed-wall-art-Photo-Room.png": 129.00,
+    "https://i.postimg.cc/Gp472Wq7/dream-large-framed-wall-art-Photo-Room.png": 299.00,
+    "https://i.postimg.cc/J05KvMzn/early-bay-prints-set-of-2-Photo-Room.png": 1099.00,
+    "https://i.postimg.cc/cCSXFrZ2/elephant-framed-wall-art-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/Kvm0Lk0g/eternal-bliss-Photo-Room.png": 475.00,
+    "https://i.postimg.cc/9XdxrtYh/feelings-framed-wall-art-Photo-Room.png": 59.00,
+    "https://i.postimg.cc/yYnvT1Gp/find-me-here-print-Photo-Room.png": 699.00,
+    "https://i.postimg.cc/kgpskjqx/fleeting-thoughts-framed-beige-wall-art-print-76x30-Photo-Room.png": 1699.00,
+    "https://i.postimg.cc/ht68Cf1s/giraffe-portrait-framed-wall-art-Photo-Room.png": 339.00,
+    "https://i.postimg.cc/LsPtG2yp/good-vibes-only-framed-wall-art-Photo-Room.png": 59.00,
+    "https://i.postimg.cc/sXRYrq8Z/grow-large-framed-wall-art-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/DZdqy5kp/happy-trees-framed-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/Xqj9ZFnj/harmony-by-wendover-art-group-beige-canvas-44x37-framed-wall-art-print-Photo-Room.png": 799.00,
+    "https://i.postimg.cc/Znwp6Rqr/heart-large-framed-wall-art-Photo-Room.png": 249.00,
+    "https://i.postimg.cc/L4DzcyVn/hi-framed-wall-art-Photo-Room.png": 229.00,
+    "https://i.postimg.cc/dVkrTJcy/indigo-blues-print-Photo-Room.png": 799.00,
+    "https://i.postimg.cc/jdky5LmT/innes-print-by-leanne-ford-Photo-Room.png": 799.00,
+    "https://i.postimg.cc/kX5xqxjw/jump-framed-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/qvPnsWpZ/just-i-framed-grey-wall-art-print-41x61-Photo-Room.png": 1299.00,
+    "https://i.postimg.cc/5t8znp09/kindness-framed-wall-art-Photo-Room.png": 59.00,
+    "https://i.postimg.cc/prc5p60C/ladybug-botanical-framed-canvas-wall-art-Photo-Room.png": 169.00,
+    "https://i.postimg.cc/MHpjZSYX/ladybug-framed-wall-art-Photo-Room.png": 129.00,
+    "https://i.postimg.cc/05VwWz8S/let-your-light-shine-framed-wall-art-by-leanne-ford-Photo-Room.png": 349.00,
+    "https://i.postimg.cc/wT3sS9vG/lifeguard-chair-framed-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/fR9SR5Y7/lion-framed-wall-art-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/jd9JTBnd/listening-moon-large-framed-wall-art-Photo-Room.png": 249.00,
+    "https://i.postimg.cc/9fP4GM8r/love-large-framed-wall-art-Photo-Room.png": 249.00,
+    "https://i.postimg.cc/YSBGGgx5/love-yourself-bear-framed-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/TwRKQ6FQ/moon-4-pc-framed-wall-art-Photo-Room.png": 499.00,
+    "https://i.postimg.cc/MTdvFL8w/mountain-landscape-framed-wall-art-Photo-Room.png": 399.00,
+    "https://i.postimg.cc/hvvfW0Sd/mushroom-botanical-framed-canvas-wall-art-Photo-Room.png": 169.00,
+    "https://i.postimg.cc/4y0nJhdF/nimbus-dimensional-Photo-Room.png": 599.00,
+    "https://i.postimg.cc/h4ZX8Nrb/ocean-2-pc-framed-wall-art-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/pXgy483m/ocean-landscape-framed-wall-art-Photo-Room.png": 399.00,
+    "https://i.postimg.cc/RZKqBhzX/orbs-abstract-Photo-Room.png": 1199.00,
+    "https://i.postimg.cc/zXLVxp2m/panda-framed-wall-art-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/25Yy8Ykm/patchwork-white-Photo-Room.png": 429.00,
+    "https://i.postimg.cc/DzcZSN0G/path-to-light-print-Photo-Room.png": 1299.00,
+    "https://i.postimg.cc/j5djPhnF/peace-hand-heart-framed-wall-art-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/Kzq8Ngnv/pearly-mountains-ii-framed-grey-wall-art-print-30x20-Photo-Room.png": 499.00,
+    "https://i.postimg.cc/SRnNtNrL/pearly-mountains-iii-framed-grey-wall-art-print-30x20-Photo-Room.png": 499.00,
+    "https://i.postimg.cc/tJ8C0QSK/pearly-mountains-iv-framed-grey-wall-art-print-30x20-Photo-Room.png": 499.00,
+    "https://i.postimg.cc/RCY0JKSg/pearly-mountains-vi-framed-grey-wall-art-print-30x20-Photo-Room.png": 499.00,
+    "https://i.postimg.cc/g04zz6tq/sentry-butterfly-print-blue-by-lucia-eames-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/Y0YWXjPJ/planet-sugarium-framed-wall-art-Photo-Room-Photo-Room.png": 999.00,
+    "https://i.postimg.cc/hP8mTzTm/repose-print-Photo-Room-Photo-Room.png": 249.00,
+    "https://i.postimg.cc/DfXLfYzB/resting-moon-large-framed-wall-art-Photo-Room-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/yYC9DXgB/self-love-framed-wall-art-Photo-Room-Photo-Room.png": 899.00,
+    "https://i.postimg.cc/NjgH4skz/sentry-butterfly-print-green-by-lucia-eames-Photo-Room-Photo-Room.png": 899.00,
+    "https://i.postimg.cc/sgwZHknD/shifted-shape-print-Photo-Room-Photo-Room.png": 799.00,
+    "https://i.postimg.cc/Ls5gcx7k/shout-at-the-river-framed-white-abstract-hand-painted-wall-art-36x72-by-lisa-whittington-Photo-Room-P.png": 999.00,
+    "https://i.postimg.cc/6QP4tdJk/skate-park-4-pc-framed-wall-art-Photo-Room-Photo-Room.png": 799.00,
+    "https://i.postimg.cc/FRJdR7h7/skateboard-framed-wall-art-Photo-Room-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/hvWJ7cGM/skateboarder-large-framed-wall-art-Photo-Room-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/3NXkXV4h/smooth-wave-framed-wall-art-Photo-Room-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/vHygYYkZ/soccer-ball-framed-wall-art-Photo-Room-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/tRWnGZrc/space-goose-framed-wall-art-Photo-Room-Photo-Room.png": 59.00,
+    "https://i.postimg.cc/fTv3J4Qj/sparkle-framed-wall-art-Photo-Room-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/dVthCWqM/sun-ray-mid-century-framed-wall-art-Photo-Room-Photo-Room.png": 59.00,
+    "https://i.postimg.cc/qvbzx8RN/surfboard-framed-wall-art-Photo-Room-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/W4dtWhFX/symbols-ii-framed-beige-wall-art-print-24x36-Photo-Room-Photo-Room.png": 699.00,
+    "https://i.postimg.cc/cHYCW2c3/the-unknown-framed-green-wall-art-print-51x73-Photo-Room-Photo-Room.png": 1199.00,
+    "https://i.postimg.cc/jjB2GtyK/tresors-prints-set-of-3-Photo-Room-Photo-Room.png": 749.00,
+    "https://i.postimg.cc/x82C15s4/turquoise-assemblage-print-Photo-Room-Photo-Room.png": 899.00,
+    "https://i.postimg.cc/D0PzJGHy/undraped-framed-white-wall-art-print-41x41-Photo-Room-Photo-Room.png": 499.00,
+    "https://i.postimg.cc/sfYxNFxd/victoria-crowned-pigeon-framed-black-wall-art-print-30x50-by-adam-mowery-Photo-Room-Photo-Room.png": 1299.00,
+    "https://i.postimg.cc/bNqrX6SG/walrus-framed-wall-art-Photo-Room-Photo-Room.png": 199.00,
+    "https://i.postimg.cc/Ghz2bkvX/watercolor-rainbow-framed-wall-art-Photo-Room-Photo-Room.png": 99.00,
+    "https://i.postimg.cc/NjzjHBJT/when-winter-begins-Photo-Room-Photo-Room.png": 1499.00,
+    "https://i.postimg.cc/9QMf0rpC/you-and-me-kid-framed-wall-art-by-leanne-ford-Photo-Room-Photo-Room.png": 349.00,
+    "https://i.postimg.cc/VN0L9pph/you-are-loved-framed-wall-art-by-leanne-ford-Photo-Room-Photo-Room.png": 349.00,
+    "https://i.postimg.cc/C1yMcJVx/you-are-loved-framed-wall-art-Photo-Room-Photo-Room.png": 39.00,
+
+        //transitional carpets 
+        "https://i.postimg.cc/WbQ19qf5/alvarez-black-hand-tufted-rug-5x8-Photo-Room-Photo-Room.png": 1399.00,
+"https://i.postimg.cc/FRW90YLg/alvarez-cream-5x8-rug-Photo-Room-Photo-Room.png": 1699.00,
+"https://i.postimg.cc/fb5ZhVBn/alvarez-garden-hand-tufted-rug-5x8-Photo-Room-Photo-Room.png": 1799.00,
+"https://i.postimg.cc/vmGMjr7t/alvarez-mineral-rug-Photo-Room-Photo-Room.png": 1099.00,
+"https://i.postimg.cc/fT0w0TTm/Alvarez-Rug-Grey5x8-F17-Photo-Room-Photo-Room.png": 1699.00,
+"https://i.postimg.cc/htLcpymG/dreux-wool-and-viscose-diamond-textured-caramel-brown-area-rug-Photo-Room-Photo-Room.png": 4999.00,
+"https://i.postimg.cc/t4Q9dQYf/dreux-wool-and-viscose-diamond-textured-grey-area-rug-Photo-Room-Photo-Room.png": 4999.00,
+"https://i.postimg.cc/sXDjBYvg/dreux-wool-and-viscose-diamond-textured-ivory-area-rug-Photo-Room-Photo-Room.png": 4999.00,
+"https://i.postimg.cc/hG04Py4Y/firenze-vintage-beige-area-rug-Photo-Room-Photo-Room.png": 6499.00,
+"https://i.postimg.cc/500J9fRH/firenze-vintage-dark-blue-area-rug-Photo-Room-Photo-Room.png": 6499.00,
+"https://i.postimg.cc/PNGnMYrZ/firenze-vintage-dark-grey-area-rug-Photo-Room-Photo-Room.png": 6499.00,
+"https://i.postimg.cc/SRYp8Dqk/firenze-vintage-ivory-area-rug-Photo-Room-Photo-Room.png": 6499.00,
+"https://i.postimg.cc/DysS3cG9/laval-border-viscose-blue-area-rug-Photo-Room-Photo-Room.png": 3999.00,
+"https://i.postimg.cc/1Rb8dd80/laval-border-viscose-dark-grey-area-rug-Photo-Room-Photo-Room.png": 3999.00,
+"https://i.postimg.cc/13r4f5JM/laval-border-viscose-light-grey-area-rug-Photo-Room-Photo-Room.png": 3999.00,
+"https://i.postimg.cc/y8Hk1SXk/laval-border-viscose-taupe-area-rug-Photo-Room-Photo-Room.png": 3999.00,
+"https://i.postimg.cc/Y2v4b7Cq/laval-solid-tip-sheared-black-area-rug-Photo-Room-Photo-Room.png": 2999.00,
+"https://i.postimg.cc/yNfdypqZ/laval-solid-tip-sheared-blue-area-rug-Photo-Room-Photo-Room.png": 2999.00,
+"https://i.postimg.cc/fWSLYv8V/laval-solid-tip-sheared-grey-area-rug-Photo-Room-Photo-Room.png": 2999.00,
+"https://i.postimg.cc/nrmhZHX4/laval-solid-tip-sheared-ivory-area-rug-Photo-Room-Photo-Room.png": 2999.00,
+"https://i.postimg.cc/3Jgxcx57/laval-solid-tip-sheared-silver-area-rug-Photo-Room-Photo-Room.png": 2999.00,
+"https://i.postimg.cc/C1BFHFH3/laval-solid-tip-sheared-taupe-area-rug-Photo-Room-Photo-Room.png": 2999.00,
+"https://i.postimg.cc/HxqT6f6V/macon-beige-rug-Photo-Room-Photo-Room.png": 2199.00,
+"https://i.postimg.cc/6Q1Wv7RV/macon-ivory-and-tan-rug-Photo-Room-Photo-Room.png": 2199.00,
+"https://i.postimg.cc/5yQSVF5s/macon-ivory-rug-Photo-Room-Photo-Room.png": 2199.00,
+"https://i.postimg.cc/3w9BChJF/melun-viscose-flatweave-striped-caramel-brown-area-rug-Photo-Room-Photo-Room.png": 2899.00,
+"https://i.postimg.cc/Fscwbftb/melun-viscose-flatweave-striped-indigo-blue-area-rug-Photo-Room-Photo-Room.png": 2899.00,
+"https://i.postimg.cc/t70tCC2p/melun-viscose-flatweave-striped-ivory-area-rug-Photo-Room-Photo-Room.png": 2299.00,
+"https://i.postimg.cc/h4NH7LYP/melun-viscose-flatweave-striped-light-grey-area-rug-Photo-Room-Photo-Room.png": 2899.00,
+"https://i.postimg.cc/GtPnq9B5/montauban-wool-and-viscose-grid-grey-area-rug-Photo-Room-Photo-Room.png": 2999.00,
+"https://i.postimg.cc/KvNyTkhK/montauban-wool-and-viscose-grid-silver-area-rug-Photo-Room-Photo-Room.png": 2999.00,
+"https://i.postimg.cc/nVqxHSdG/montauban-wool-and-viscose-grid-white-and-light-grey-area-rug-Photo-Room-Photo-Room.png": 2999.00,
+"https://i.postimg.cc/SNqhjL3F/montauban-wool-and-viscose-grid-white-area-rug-Photo-Room-Photo-Room.png": 2999.00,
+"https://i.postimg.cc/fL9NS8MZ/odense-wool-and-viscose-pattern-grey-area-rug-Photo-Room-Photo-Room.png": 2299.00,
+"https://i.postimg.cc/XYs3RZ2M/tottori-blue-abstract-rug-5x8-Photo-Room-Photo-Room.png": 2249.00,
+"https://i.postimg.cc/VLcYnPSh/tottori-grey-abstract-rug-5x8-Photo-Room-Photo-Room.png": 1949.00,
+"https://i.postimg.cc/6qxNrCQZ/vaughn-5x8-modern-copper-rug-Photo-Room-Photo-Room.png": 1599.00,
+"https://i.postimg.cc/vZ2FPJBb/Vaughn-Black-Rug6x9-F18-Photo-Room-Photo-Room.png": 799,
+"https://i.postimg.cc/DzWVRxJs/Vaughn-Blue-Rug6x9-F18-Photo-Room-Photo-Room.png": 1599.00,
+"https://i.postimg.cc/wBSKzDLr/Vaughn-Grey-Rug6x9-F18-Photo-Room-Photo-Room.png": 799,
+"https://i.postimg.cc/d3YzkvWm/whistler-viscose-and-jute-distressed-charcoal-black-area-rug-Photo-Room-Photo-Room.png": 4499.00,
+"https://i.postimg.cc/Twmz3hc3/whistler-viscose-and-jute-distressed-white-area-rug-Photo-Room-Photo-Room.png": 4499.00,
+
+        //transitional curtains 
+        "https://i.postimg.cc/zDWCvxjD/ashbery-ivory-window-curtain-panel-Photo-Room.png": 119.95,
+"https://i.postimg.cc/52PvTTxg/ashbery-mist-blue-window-curtain-panel-Photo-Room.png": 119.95,
+"https://i.postimg.cc/5NgFQTFJ/ashbery-pebble-grey-window-curtain-panel-Photo-Room.png": 119.95,
+"https://i.postimg.cc/prtnKtZW/crisp-white-european-flax-certified-linen-window-curtain-panel-Photo-Room.png": 229.95,
+"https://i.postimg.cc/VNdM8gv8/crisp-white-merrow-stitch-organic-cotton-window-curtain-panel-Photo-Room.png": 139.95,
+"https://i.postimg.cc/k4SbV5WY/crisp-white-sheer-linen-window-curtain-panel-Photo-Room.png": 99.95,
+"https://i.postimg.cc/xTnzCn8g/desmond-cotton-pebble-grey-window-curtain-panel-with-lining-Photo-Room.png": 129.95,
+"https://i.postimg.cc/DfqGn8v8/desmond-cotton-warm-beige-window-curtain-panel-with-lining-Photo-Room.png": 119.95,
+"https://i.postimg.cc/NF4LT2FD/desmond-storm-grey-cotton-window-curtain-panels-Photo-Room.png": 49.95,
+"https://i.postimg.cc/FsT7HS2s/ivory-cotton-velvet-window-curtain-panel-with-lining-Photo-Room.png": 199.95,
+"https://i.postimg.cc/fRkktLN7/ivory-european-flax-certified-linen-sheer-stripe-window-curtain-panel-Photo-Room.png": 129.95,
+"https://i.postimg.cc/W4k38Hth/ivory-european-flax-certified-linen-window-curtain-panel-Photo-Room.png": 229.95,
+"https://i.postimg.cc/FRXKBVJG/lindstrom-crisp-white-organic-cotton-sheer-window-curtain-panels-Photo-Room.png": 149.95,
+"https://i.postimg.cc/fRFyxNzG/lindstrom-ivory-organic-cotton-sheer-window-curtain-panel-Photo-Room.png": 149.95,
+"https://i.postimg.cc/2y283p9X/lindstrom-mist-blue-organic-cotton-sheer-window-curtain-panel-Photo-Room.png": 149.95,
+"https://i.postimg.cc/ZK552RCk/lindstrom-storm-grey-organic-cotton-sheer-window-curtain-panel-Photo-Room.png": 149.95,
+"https://i.postimg.cc/bYTvmbYH/mist-blue-cotton-velvet-window-curtain-panel-with-lining-Photo-Room.png": 149.95,
+"https://i.postimg.cc/Z59KYM8V/mist-blue-european-flax-certified-linen-window-curtain-panel-Photo-Room.png": 149.95,
+"https://i.postimg.cc/NMtg4GWz/mist-blue-merrow-stitch-organic-cotton-window-curtain-panel-Photo-Room.png": 199.95,
+"https://i.postimg.cc/zfKzKHPh/mist-blue-sheer-linen-window-curtain-panel-Photo-Room.png": 219.95,
+"https://i.postimg.cc/4d1XFkGN/pebble-grey-cotton-velvet-window-curtain-panel-with-lining-Photo-Room.png": 159.95,
+"https://i.postimg.cc/brNp7CY0/pebble-grey-european-flax-certified-linen-window-curtain-panel-Photo-Room.png": 99.95,
+"https://i.postimg.cc/sgtfM4Ky/pebble-grey-linen-sheer-curtain-panel-52x84-Photo-Room.png": 199.95,
+"https://i.postimg.cc/ryQ81kgf/pebble-grey-merrow-stitch-organic-cotton-window-curtain-panel-Photo-Room.png": 229.95,
+"https://i.postimg.cc/8PcTw00N/pebble-grey-sheer-linen-window-curtain-panel-Photo-Room.png": 159.95,
+"https://i.postimg.cc/tRSj1zCf/reid-blue-window-curtain-panel-Photo-Room.png": 99.95,
+"https://i.postimg.cc/SRvFwmvq/reid-pebble-grey-cotton-window-curtain-panel-Photo-Room.png": 139.95,
+"https://i.postimg.cc/8Pxg4Pvm/reid-warm-beige-cotton-window-curtain-panel-Photo-Room.png": 139.95,
+"https://i.postimg.cc/tgN093MB/storm-grey-cotton-velvet-window-curtain-panel-with-lining-Photo-Room.png": 139.95,
+"https://i.postimg.cc/k5m3r1fV/storm-grey-european-flax-certified-linen-sheer-stripe-window-curtain-panel-Photo-Room.png": 199.95,
+"https://i.postimg.cc/ydLwZVB9/storm-grey-european-flax-certified-linen-window-curtain-panel-Photo-Room.png": 129.95,
+"https://i.postimg.cc/DySK1bSz/storm-grey-european-flax-certified-linen-blackout-curtain-panels-Photo-Room.png": 219.95,
+"https://i.postimg.cc/Kj4C7dvW/trevino-crisp-white-cotton-silk-blend-window-curtain-panel-Photo-Room.png": 169.95,
+"https://i.postimg.cc/Fzq8TDYH/trevino-mist-blue-cotton-silk-blend-window-curtain-panel-Photo-Room.png": 169.95,
+"https://i.postimg.cc/cLf2c70d/trevino-pebble-grey-cotton-silk-blend-window-curtain-panel-Photo-Room.png": 169.95,
+"https://i.postimg.cc/rmwHcvWp/trevino-storm-grey-cotton-silk-blend-window-curtain-panel-Photo-Room.png": 169.95,
+"https://i.postimg.cc/2yP9Qytq/trevino-warm-beige-cotton-silk-blend-window-curtain-panel-Photo-Room.png": 169.95,
+"https://i.postimg.cc/vZ72nQtB/warm-beige-cotton-velvet-window-curtain-panel-with-lining-Photo-Room.png": 189.95,
+"https://i.postimg.cc/JzCdtyJv/warm-beige-european-flax-certified-linen-sheer-stripe-window-curtain-panel-Photo-Room.png": 199.95,
+"https://i.postimg.cc/wB6fcSwk/warm-beige-european-flax-certified-linen-window-curtain-panel-Photo-Room.png": 129.95,
+"https://i.postimg.cc/50ysD8dY/warm-beige-merrow-stitch-organic-cotton-window-curtain-panel-Photo-Room.png": 219.95,
+"https://i.postimg.cc/BQKVq582/warm-natural-cotton-velvet-curtain-panels-Photo-Room.png": 109.95,
+    };
+
+    const siteMap = {
+      //lightsofas
+      "https://i.postimg.cc/RVJm9WkB/a-Photo-Room.png": "https://www.amazon.com/HONBAY-Convertible-Sofa-Modular-Reversible/dp/B09Z6SRBM2",
+      "https://i.postimg.cc/26XpNYTy/b-Photo-Room.png": "https://www.amazon.com/HONBAY-Convertible-Sectional-Modern-L-Shape/dp/B07ZDBPFL7",
+      "https://i.postimg.cc/zGn1b9D2/c-Photo-Room.png" : "https://www.amazon.com/Flamaker-Convertible-Sectional-Reversible-Apartment/dp/B0C69PYXCS",
+      "https://i.postimg.cc/5tbWwn64/d-Photo-Room.png" : "https://www.amazon.com/Flamaker-Convertible-Living-Room-Furniture-Set-Sectional-Sleeper-Sofa-Double-Chaise/dp/B0C16GJHV6",
+      "https://i.postimg.cc/8cF21YnH/e-Photo-Room.png" : "https://www.amazon.com/HONBAY-Modular-Sectional-Sofa-Sleeper/dp/B09ZV15H3C",
+      "https://i.postimg.cc/zBfmQvC4/f-Photo-Room.png" : "https://www.amazon.com/Stone-Beam-Mid-Century-Loveseat-Removable/dp/B07QHYD5ZP",
+      "https://i.postimg.cc/Y0JJjx5w/g-Photo-Room.png" : "https://www.amazon.com/Best-Choice-Products-Convertible-Cupholders/dp/B07Y4QCDXC",
+      "https://i.postimg.cc/dVMY0qFT/h-Photo-Room.png" : "https://www.amazon.com/Rivet-Revolve-Mid-Century-Reversible-Sectional/dp/B07BWM2CTH",
+      "https://i.postimg.cc/25GRThZ4/i-Photo-Room.png" : "https://www.amazon.com/Stone-Beam-Westview-Down-Filled-Loveseat/dp/B082VKTV1P",
+      "https://i.postimg.cc/nVg8dHCw/j-Photo-Room.png" : "https://www.amazon.com/Stone-Beam-Westview-Extra-Down-Filled/dp/B082VLYF5W",
+      "https://i.postimg.cc/9F76Kv9X/k-Photo-Room.png" : "https://www.amazon.com/Stone-Beam-Lauren-Filled-Oversized/dp/B072M1W877",
+
+     //darksofas 
+     "https://i.postimg.cc/kXSz2hWp/l-Photo-Room.png" : "https://www.amazon.com/Vesgantti-Loveseat-Pillows-Century-Apartment/dp/B0C1GC93DK",
+     "https://i.postimg.cc/KvtpG32X/m-Photo-Room.png" : "https://www.amazon.com/Best-Choice-Products-Sectional-Reversible/dp/B08LJVMZD8",
+     "https://i.postimg.cc/rsrntKRr/n-Photo-Room.png" : "https://www.amazon.com/FANYE-L-Shaped-Corner-Sleeper-Sectional/dp/B0BYJHFH41",
+     "https://i.postimg.cc/59hkWqDq/o-Photo-Room.png" : "https://www.amazon.com/TYBOATLE-Convertible-Charging-Loveseat-Apartment/dp/B09YYHL141",
+     "https://i.postimg.cc/ZqbMDb2G/p-Photo-Room.png" : "https://www.amazon.com/HONBAY-Modular-Sectional-Convertible-Reversible/dp/B0BSGD5G7J",
+     "https://i.postimg.cc/6621P1bp/q-Photo-Room.png" : "https://www.amazon.com/HONBAY-Reversible-Sectional-L-Shape-Apartment/dp/B07ZHCZ5K1",
+     "https://i.postimg.cc/sX10snVK/r-Photo-Room.png" : "https://www.amazon.com/Casa-Andrea-Milano-U-Shape-Sectional/dp/B0BQ9ZGGHH",
+     "https://i.postimg.cc/9QV8rXmD/s-Photo-Room.png" : "https://www.amazon.com/HONBAY-Convertible-Sectional-Reversible-Apartment/dp/B0BSXR5Q4S",
+     "https://i.postimg.cc/mrm5xxGt/t-Photo-Room.png" : "https://www.amazon.com/HONBAY-Modular-Sectional-Convertible-Reversible/dp/B0BZYFW4KG",
+     "https://i.postimg.cc/vZzP9RT3/u-Photo-Room.png" : "https://www.amazon.com/HONBAY-Convertible-Sectional-Reversible-Apartment/dp/B0BSV3KDJ5",
+     "https://i.postimg.cc/YSCdzXmk/v-Photo-Room.png" : "https://www.amazon.com/Casa-Andrea-Milano-L-Shape-Sectional/dp/B0BZQXHNWB",
+     "https://i.postimg.cc/KzKQdRNH/w-Photo-Room.png" : "https://www.amazon.com/Maxspeed-Convertible-Loveseat-Adjustable-Multifunctional/dp/B0C3T5QDXH?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&psc=1&smid=A14LEN90GMH0J",
+     "https://i.postimg.cc/3RP97YfJ/x-Photo-Room.png" : "https://www.amazon.com/Dreamsir-Mid-Century-Furniture-Tool-Free-Assembly/dp/B09VX1KDPL",
+     "https://i.postimg.cc/05wcnKr6/y-Photo-Room.png" : "https://www.amazon.com/Stone-Beam-Westview-Leather-Down-Filled/dp/B082VLYQWX", 
+     "https://i.postimg.cc/QC1mdwvg/z-Photo-Room.png" : "https://www.amazon.com/Best-Choice-Products-Leather-Recliner/dp/B01LXDH29Y",
+
+     //lightchairs 
+     "https://i.postimg.cc/26ZCP5HV/0-Photo-Room.png" : "https://www.wayfair.com/furniture/pdp/wrought-studio-amicus-upholstered-swivel-armchair-w100315399.html", 
+     "https://i.postimg.cc/nhhK2Pw0/1.png" : "https://www.amazon.com/Dining-Chairs-Upholstered-Room-Mid-Century/dp/B0CBHNVJDY?th=1",   
+     "https://i.postimg.cc/MTdSQjrM/2-Photo-Room.png" : "https://www.amazon.com/Yaheetech-Contemporary-Upholstered-Ottoman-Guestroom/dp/B097B6MYHQ", 
+     "https://i.postimg.cc/PrNt12Ht/3-Photo-Room.png" : "https://www.amazon.com/HOMEFUN-Velvet-Accent-Upholstered-Bedroom/dp/B08BFRDDG1", 
+     "https://i.postimg.cc/PfSXL0B3/4-Photo-Room.png" : "https://www.amazon.com/ONPNO-High-Back-Rocking-Uplostered-Armchair/dp/B0B41B9CM4", 
+     "https://i.postimg.cc/1z1shSqt/5-Photo-Room.png" : "https://www.amazon.com/Yaheetech-Velvet-Accent-Chair-Wood/dp/B081H8ZSBM",  
+     "https://i.postimg.cc/Jz0JZBGF/6.png" : "https://havenly.com/products/details/Cameron-Slope-Arm-Slipcovered-Swivel-Armchair-Polyester-Wrapped-Cushions-Performance-Heathered-Basketweave-Dove-Pottery-Barn-87068512", 
+     "https://i.postimg.cc/Fsqhp3F0/7-Photo-Room.png" : "https://www.amazon.com/chairus-Century-Armless-Upholstered-Restaurant/dp/B0BJ5N9XHV",  
+     "https://i.postimg.cc/qv345qgS/8-Photo-Room.png" : "https://www.amazon.com/Rocking-Nursery-Ottoman-Century-Leathaire/dp/B0B591VZTF", 
+     "https://i.postimg.cc/XqWdCHCK/9.png" : "https://www.amazon.com/SESHINELL-Ottoman-Contemporary-Armrests-Footstool/dp/B0BP22PCCS", 
+     "https://i.postimg.cc/QCCrkxR6/10-Photo-Room.png" : "https://www.amazon.com/SONGMICS-Leisure-Chair-Armrest-Mid-Century/dp/B08D73KF6R", 
+     "https://i.postimg.cc/XNKwbbRs/11-Photo-Room-Photo-Room.png" : "https://www.amazon.com/Ashley-Furniture-Signature-Design-Contemporary/dp/B079J438ZT", 
+     "https://i.postimg.cc/fyPQHQsM/12-Photo-Room.png" : "https://www.amazon.com/SOJERKI-Reading-Pillow-Modern-Bedroom/dp/B0BCVK42TY",  
+     "https://i.postimg.cc/kXnWMH9q/13-Photo-Room-Photo-Room.png" : "https://www.amazon.com/Christopher-Knight-Home-299754-Kendal/dp/B01MRTTNSV",  
+     "https://i.postimg.cc/8PqVMGwH/14-Photo-Room.png" : "https://www.amazon.com/Recliner-Ottoman-Adjustable-Backrest-Bedroom/dp/B09N15R312", 
+     "https://i.postimg.cc/Y0xgf665/15-Photo-Room-Photo-Room.png" : "https://www.amazon.com/OAKHAM-Armchair-Assembly-Walnut-Brown-Walnut-Beige/dp/B0CB3F8PTH", 
+     "https://i.postimg.cc/4xVR10ST/16-Photo-Room.png" : "https://www.amazon.com/ANJHOME-Century-Reading-Armchair-Assembly/dp/B09KXSN8WW", 
+     "https://i.postimg.cc/qMjyNGMn/17-Photo-Room-Photo-Room.png" : "https://www.amazon.com/Kendal-Traditional-Fabric-Accent-Chair/dp/B07GBTLB49", 
+     "https://i.postimg.cc/QtxLhdxX/18-Photo-Room.png" : "https://www.amazon.com/Yaheetech-Mid-Century-Armchair-Reading-Leisure/dp/B0BW2CXDXL",  
+     "https://i.postimg.cc/FRPMRX70/19-Photo-Room.png" : "https://www.amazon.com/FREEHOMAE-Polyester-Accent-Living-Square/dp/B0BTSLQN29",  
+     "https://i.postimg.cc/3rqMQ7MT/20-Photo-Room.png" : "https://www.amazon.com/Rosevera-Contemporary-Armchair-Upholstery-Furniture/dp/B0BPY7BHSC", 
+     "https://i.postimg.cc/mkt01pHJ/21-Photo-Room.png" : "7https://www.amazon.com/YAHEETECH-Ergonomic-Armchair-Upholstered-Leisures/dp/B08RD81M4D",  
+     "https://i.postimg.cc/HnRFw00x/22-Photo-Room.png" : "https://www.amazon.com/Upholstered-Fabric-Accent-Leisure-Reading/dp/B0C7TSL2LF",   
+     "https://i.postimg.cc/K8Xd4Nvp/23-Photo-Room.png" : "https://www.amazon.com/Urban-Shop-Velvet-Tufted-Sling/dp/B0B2Z3K55Z", 
+     "https://i.postimg.cc/654k9SwG/24-Photo-Room.png" : "https://www.amazon.com/Karl-home-Mid-Century-Upholstered-Cushion/dp/B0BLP4W97Y", 
+     
+     //dark chairs
+     "https://i.postimg.cc/g2LdwjW4/25-Photo-Room.png" : "https://www.amazon.com/YAHEETECH-Mid-Century-Recliner-Adjustable-Upholstered/dp/B08L7SSV3V", 
+     "https://i.postimg.cc/KYXbtbcb/26-Photo-Room.png" : "https://www.amazon.com/HollyHOME-Modern-Contemporary-Leisure-Armrests/dp/B084YXL6BH",  
+     "https://i.postimg.cc/L5sFm6Dt/27-Photo-Room.png" : "https://www.amazon.com/Yaheetech-Armchair-Century-Upholstered-Bedroom/dp/B0BHY39Z8G",  
+     "https://i.postimg.cc/vBbdSv6S/28-Photo-Room.png" : "https://www.amazon.com/GIA-Century-Modern-Bedroom-Upholstered/dp/B0BYRYQ6T9?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&psc=1&smid=ATVPDKIKX0DER", 
+     "https://i.postimg.cc/0QnqgJY5/29-Photo-Room.png" : "https://www.amazon.com/CHITA-Recliner-Upholstered-Reclining-Support/dp/B09BZ5XPVS", 
+     "https://i.postimg.cc/T1HM1MNZ/30-Photo-Room.png" : "https://www.amazon.com/Modern-Bedroom-Leisure-Upholstered-armrest/dp/B09X53CH53", 
+     "https://i.postimg.cc/ZR1M3Sb9/31-Photo-Room.png" : "https://www.amazon.com/HIPIHOM-Kitchen-Upholstered-Leather-Cushion/dp/B0B18GXPSS", 
+
+     //light tables 
+     "https://i.postimg.cc/hv6GpGV4/32-Photo-Room.png" : "https://www.amazon.com/Henn-Hart-Blackened-Bronze-Coffee/dp/B08TQF2LNV", 
+     "https://i.postimg.cc/mZ5hbmKx/33-Photo-Room.png" : "https://www.amazon.com/AZL1-Life-Concept-Coffee-Glossy/dp/B0895ZZLRK", 
+     "https://i.postimg.cc/kgx5vqG9/34-Photo-Room.png" : "https://www.amazon.com/AmazonBasics-Round-Storage-End-Table/dp/B07TTTG49V?th=1", 
+     "https://i.postimg.cc/2Sp6WVz2/35-Photo-Room.png" : "https://www.amazon.com/Adore-Decor-FUTB10104A-Dahlia-Natural/dp/B07Q5WNVLC", 
+     "https://i.postimg.cc/pX5ryDtm/36-Photo-Room.png" : "https://www.amazon.com/Amazon-Brand-Rustic-Reclaimed-Coffee/dp/B08SSBTZK3", 
+
+     //dark tables
+     "https://i.postimg.cc/7Y74F4zR/37-Photo-Room.png" : "https://www.amazon.com/Flower-Industrial-Cocktail-Durable-Assemble/dp/B08PMK7TVV", 
+     "https://i.postimg.cc/wTK8crrQ/38-Photo-Room.png" : "https://www.amazon.com/WLIVE-Modern-Storage-Compartment-Tabletop/dp/B0BKQ1Q798?th=1", 
+     "https://i.postimg.cc/dQZcCF50/39-Photo-Room.png" : "https://www.amazon.com/Rolanstar-Drawers-Compartment-Central-Tabletop/dp/B08SBNK4G7", 
+     "https://i.postimg.cc/SxfhKGD7/40-Photo-Room.png" : "https://www.amazon.com/Modern-Storage-Entertainment-Transparent-Tempered/dp/B09DGC6P7V", 
+     "https://i.postimg.cc/3NGMQjkG/41-Photo-Room.png" : "https://www.amazon.com/POLY-BARK-Coffee-Natural-Acacia/dp/B09388V63H?th=1",  
+     "https://i.postimg.cc/Sxh4qP7x/42-Photo-Room.png" : "https://www.amazon.com/Furinno-16049EX-Modern-Simplistic-Espresso/dp/B075N8JZ5N", 
+     "https://i.postimg.cc/MGZ8fjLk/43-Photo-Room.png" : "https://www.amazon.com/Yaheetech-Lift-Top-Coffee-Table/dp/B08XHQ7W94",  
+     "https://i.postimg.cc/76f8mrDm/44-Photo-Room.png" : "https://www.amazon.com/Household-Essentials-Ashwood-Laminate-Coffee/dp/B09QLK6N9W", 
+     "https://i.postimg.cc/cJDGRLqv/45-Photo-Room.png" : "https://www.amazon.com/Firminana-Coffee-Living-Century-Modern/dp/B0B15CX42T", 
+     "https://i.postimg.cc/X7wM28SS/46-Photo-Room.png" : "https://www.amazon.com/Sweetcrispy-Coffee-Tabletop-Storage-Compartment/dp/B0C5X64YMX", 
+     "https://i.postimg.cc/bw874tpG/47-Photo-Room.png" : "https://www.amazon.com/CAPHAUS-Sliding-Tabletop-Compartment-Storage/dp/B0BH4NB88W", 
+     "https://i.postimg.cc/0Q6F7Gd4/48-Photo-Room.png" : "https://www.amazon.com/Shintenchi-Coffee-Tabletop-Compartment-Storage/dp/B0BX66PNQ9", 
+     "https://i.postimg.cc/mgwv4ggm/49-Photo-Room.png" : "https://www.amazon.com/Signature-Design-Ashley-T901-9-Coffee/dp/B07234FKMS", 
+     "https://i.postimg.cc/0NyLy16P/50-Photo-Room.png" : "https://www.amazon.com/ZenStyle-Industrial-Furniture-Cocktail-Assembly/dp/B08NFBSC1F", 
+     "https://i.postimg.cc/fbq13qXX/51-Photo-Room.png" : "https://www.amazon.com/DHP-Parsons-Modern-Coffee-Espresso/dp/B009OBA2V8", 
+     "https://i.postimg.cc/Hs1R7yJS/52-Photo-Room.png" : "https://www.amazon.com/Storage-Adjustable-Compartment-Apartment-Reception/dp/B0BTPDLXN4", 
+     "https://i.postimg.cc/MHVLFWLb/53-Photo-Room.png" : "https://www.amazon.com/Amazon-Basics-Storage-Rectangular-Coffee/dp/B07J29V51Q", 
+     "https://i.postimg.cc/L41GXTsY/54-Photo-Room.png" : "https://www.amazon.com/Furinno-11179EX-Simple-Design-Espresso/dp/B003VOZE6M", 
+     "https://i.postimg.cc/85q34FZz/55-Photo-Room.png" : "https://www.amazon.com/ChooChoo-Classic-Rectangular-Cocktail-Storage/dp/B07T238M73", 
+     "https://i.postimg.cc/Kv7V78Bm/56-Photo-Room.png" : "https://www.amazon.com/Panana-Compartment-Tabletop-Farmhouse-Reception/dp/B09TZZJ4GF", 
+
+     //light paintings 
+     "https://i.postimg.cc/7ZPbNbG4/57-Photo-Room.png" : "https://www.amazon.com/Canvas-Bedroom-Pictures-Artwork-Painting/dp/B0B8C6N5T4?th=1",  
+     "https://i.postimg.cc/WzP1q4LQ/58-Photo-Room.png" : "https://www.amazon.com/Custom-Canvas-Prints-Photos-Posters/dp/B09PLNJHT6?th=1", 
+     "https://i.postimg.cc/CLSKFd48/59-Photo-Room.png" : "https://www.amazon.com/𝗗𝗿𝘀𝗼𝘂𝗺-Abstract-Minimalist-Geometric-𝗙𝗿𝗮𝗺𝗲𝗱/dp/B0BXW98VZF", 
+     "https://i.postimg.cc/Hn1zjFY6/610c-2-FL9a-L-AC-SL1000-Photo-Room.png" : "https://lens.google.com/search?ep=subb&hl=en&p=AUM6UZANa14uSJp5JxFm6I9l6PmehquOamcggCrLbaFeplUsJ-trAh2qmU0ebLWPFQ6vcx9-uhZw4KIvfSyEHUY2bLtf20ZRZU_txM_kz0CUZ_3rNr85Q3uculeNEQpyVARLdcyB_qAH_UTUxi3y1NkFI0Hk0M0AiwQRvc1LXB7acf-9ID-ANzZAUY9ss6h18Lfq3VVukO47ypSADkwlYXo1AwE2GIfngW4A_ngdax-yX2LValq6t6cxXK8OAsG75monqEakuVAdRuSBjRbBjxClZ0FVYdxdx51P6CFFx9w%3D#lns=W251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsIkVrY0tKRFk1WldNM04yTXhMVFE0WWpZdE5HTmhNUzFpWXpoa0xUSTRNekJsTkRBMVpHUTRZUklmV1hnME1qZEtObEpMYVZWYVNVVXhUR3gwZUVKVlRIQlpkRlEyUkc5Q1p3PT0iLG51bGwsbnVsbCxbW251bGwsbnVsbCwiMC0wIl0sWyI0YWJkNDIxMC04NzhjLTQzZDAtOWUwOS1kNGNjODU1NGYyNjQiXV1d", 
+     "https://i.postimg.cc/pVDTbKKx/61-Photo-Room.png" : "https://www.amazon.com/Botanical-Bedroom-Minimalist-Painting-Eucalyptus/dp/B09HH17JRH", 
+     "https://i.postimg.cc/fLdbb9Fc/62-Photo-Room.png" : "https://www.amazon.eg/-/en/BINCUE-Mountains-Landscape-Mountain-Paintings/dp/B0BVDJTMD3", 
+     "https://i.postimg.cc/MpGKQ4NK/63-Photo-Room.png" : "https://www.amazon.com/Madison-Park-Luminous-Painted-Canvas/dp/B07CZYFJ79",  
+     "https://i.postimg.cc/1Xc5GZy4/64-Photo-Room.png" : "https://www.amazon.com/mountain-Landscape-Abstract-decorations-watercolor/dp/B07YDGF8XT?th=1", 
+     "https://i.postimg.cc/Wb81tj9H/65-Photo-Room.png" : "https://www.amazon.com/Abstract-Paintings-Colorful-Background-Kitchen20/dp/B0B1499QLK", 
+     "https://i.postimg.cc/bwFYHgf0/66-Photo-Room.png" : "https://www.amazon.com/NWT-Custom-Anniversary-Personalized-Pictures/dp/B07N2HLVS5?th=1", 
+     "https://i.postimg.cc/vmgYPnGJ/67-Photo-Room.png" : "https://www.amazon.com/Minimalist-Mid-Century-Geometric-Botanical-Paintings/dp/B0B4JKRDPN?th=1", 
+
+     //dark paintings 
+     "https://i.postimg.cc/DwTFQzZg/68-Photo-Room.png" : "https://www.amazon.com/farmhouse-Painting-decorations-Stretched-Paintings/dp/B085RCGP4Q", 
+     "https://i.postimg.cc/4xQGWTHT/69-Photo-Room.png" : "https://www.amazon.com/artwork-Painting-bedroom-kitchen-picture/dp/B07DW1DLWF?th=1", 
+     "https://i.postimg.cc/9095Z3HK/70-Photo-Room.png" :  "https://www.amazon.com/HKDGOKA-Bathroom-Wall-Art-Decoration/dp/B0BF5BBMPJ",  
+     "https://i.postimg.cc/1t218m2D/71-Photo-Room.png" : "https://www.amazon.com/SERIMINO-Pictures-Bathroom-Paintings-Decorations/dp/B0BN53DFPH?th=1",  
+     "https://i.postimg.cc/ZRChYB7T/72-Photo-Room.png" : "https://www.amazon.com/AWTJIS-Academia-Aesthetics-Mid-Century-Painting/dp/B0C5RGQWG6?th=1", 
+     "https://i.postimg.cc/Kc3ydT3f/73-Photo-Room.png" : "https://www.amazon.com/Wall-Art-Oil-Paintings-Reproduction/dp/B0BKY8GGSS",  
+     "https://i.postimg.cc/y8jqFX21/74-Photo-Room.png" : "https://www.amazon.com/Abstract-Colorful-Painting-Watercolor-Pictures/dp/B0BGLSMTDN?th=1", 
+     "https://i.postimg.cc/Gh01rpkC/75-Photo-Room.png" : "https://www.amazon.com/msspart-Leonardo-Paintings-Reproductions-Decoration/dp/B0BCQVKHJ2?th=1", 
+     "https://i.postimg.cc/DzfTDY14/76-Photo-Room.png" : "https://www.amazon.com/Flowers-Pictures-Decorations-Paintings-Background/dp/B08DRC45LM", 
+     "https://i.postimg.cc/VLjPNcRb/77-Photo-Room.png" : "https://www.amazon.com/YaSheng-Art-Metallic-Paintings-24x24inch/dp/B07CKMRYK5", 
+     "https://i.postimg.cc/y8s4grQp/78-Photo-Room.png" : "https://www.amazon.com/Bedroom-Sunrise-Paintings-Bathroom-Decorations/dp/B09JKJ78LF?th=1", 
+     "https://i.postimg.cc/cJLpTtNQ/79-Photo-Room.png" : "https://www.amazon.com/Bedroom-Bathroom-Artwork-Decorations-Painting/dp/B07ZVNWBFY", 
+     "https://i.postimg.cc/NMyWvhFF/80-Photo-Room.png" : "https://www.amazon.com/InSimSea-12x16in-Bathroom-Botanical-Painting/dp/B0BH8V1TL5", 
+     "https://i.postimg.cc/nVD6dtNw/81-Photo-Room.png" : "https://www.amazon.com/Epic-Art-Graffiti-Vassileva-Acrylic/dp/B099P3J57G", 
+     "https://i.postimg.cc/50ZDxPQ3/82-Photo-Room.png" : "https://www.amazon.com/Wieco-Art-Paintings-Reproduction-Decorations/dp/B00O9OMDQ2?th=1",  
+     "https://i.postimg.cc/X7Ktbkjf/83-Photo-Room.png" : "https://www.amazon.com/AGCary-Season-Painting-Picture-Decorations/dp/B07XY7NHKN?th=1", 
+     "https://i.postimg.cc/7h0dbggy/84-Photo-Room.png" : "https://www.amazon.com/Personalized-Canvas-Custom-Prints-Photos/dp/B08DRDGZGN?th=1", 
+     "https://i.postimg.cc/T3RFY51Z/85-Photo-Room.png" : "https://www.amazon.com/TIME-TREE-Bedroom-Inspirational-Astronaut/dp/B09CTSXFFZ?th=1", 
+     "https://i.postimg.cc/X76tmzbN/86-Photo-Room.png" : "https://www.amazon.com/Nachic-Pictures-Wall-Decorations-Decoration/dp/B07PT83B6J",  
+     "https://i.postimg.cc/DwBDWfbm/87-Photo-Room.png" : "https://www.amazon.com/Canvas-Print-Wall-Art-Paintings/dp/B07XGQWMWC?th=1", 
+     "https://i.postimg.cc/mrkn7xQj/88-Photo-Room.png" : "https://www.amazon.com/SDYA-Abstract-Painted-Painting-Colorful/dp/B07NYSLGR9?th=1", 
+     "https://i.postimg.cc/NFqPh5ZC/89-Photo-Room.png" : "https://www.amazon.com/American-Graffiti-Paintings-Decoration-16x24inch/dp/B0B7GF6XFH?th=1", 
+     "https://i.postimg.cc/Gpf5QMKC/90-Photo-Room.png" : "https://www.amazon.com/Stupell-Industries-Newspaper-Painting-Heffernan/dp/B081BNRTJP", 
+
+     //light carpets 
+     "https://m.media-amazon.com/images/I/912EmcCjVqL._AC_SL1500_.jpg" : "https://www.amazon.com/Rugshop-Modern-Floral-Circles-Design/dp/B0791JPNGL",  
+     "https://m.media-amazon.com/images/I/A1mMQ4ru2ZL._AC_SL1500_.jpg" : "https://www.amazon.com/Rugshop-Modern-Floral-Circles-Design/dp/B0791JP9ZL?th=1", 
+     "https://m.media-amazon.com/images/I/916b8GBKW6L._AC_SL1500_.jpg" : "https://www.amazon.com/Area-Rug-Living-Room-Rugs/dp/B0BHL3ZDFK", 
+
+     //dark carpets 
+     "https://m.media-amazon.com/images/I/A1RLNleVxiL._AC_SL1500_.jpg" : "https://www.amazon.com/Modern-Bedroom-Contemporary-Sevilla-Collection/dp/B09M3PLYGB", 
+     "https://m.media-amazon.com/images/I/A1V-JFuZB5L._AC_SL1500_.jpg" : "https://www.amazon.com/Rugshop-Modern-Wavy-Circles-Desing/dp/B07D3XXSK1", 
+     "https://m.media-amazon.com/images/I/81lC5sskpbL._AC_SL1500_.jpg" : "https://www.amazon.com/Area-Rug-Living-Room-Rugs/dp/B0BG58VHSP", 
+
+     //light curtains 
+     "https://i.postimg.cc/SRsVfpfL/127-Photo-Room.png" : "https://www.amazon.com/Curtain-Cotton-Textured-Curtains-curtains-Darkening/dp/B07S36YT4X?th=1", 
+     "https://i.postimg.cc/T140kHtz/128-Photo-Room.png" : "https://www.amazon.com/Amazon-Basics-Darkening-Blackout-Curtains/dp/B09JSXLNRW?th=1", 
+     "https://i.postimg.cc/QN4fxHjf/129-Photo-Room.png" : "https://www.amazon.com/BGment-Blackout-Curtains-Bedroom-Insulated/dp/B07XWVWRRF?th=1", 
+     "https://i.postimg.cc/BQjM8464/130-Photo-Room.png" : "https://www.amazon.com/BGment-Blackout-Curtains-Insulated-Darkening/dp/B09TV8XYJ7", 
+
+     //dark curtains 
+     "https://i.postimg.cc/G3Kp5Tkh/131-Photo-Room.png" : "https://www.amazon.com/Amazon-Basics-Darkening-Blackout-Curtains/dp/B09JT5KYWP?th=1", 
+     "https://i.postimg.cc/fTgRw42G/132-Photo-Room.png" : "https://www.amazon.com/BGment-Blackout-Curtains-Bedroom-Insulated/dp/B081BFRHCZ?th=1",  
+     "https://i.postimg.cc/2Sb8yHgV/133-Photo-Room.png" : "https://www.amazon.com/BGment-Christmas-Thanksgiving-Blackout-Curtains/dp/B07D6HBT8F", 
+
+     //houseplants 
+    "https://i.postimg.cc/Rh3qT6rS/91-jpg-Photo-Room.png": "https://www.amazon.com/WHW-Whole-House-Worlds-Houseplant/dp/B074RL4DT5",
+    "https://i.postimg.cc/s2VXN0F0/92-jpg-Photo-Room.png": "https://www.amazon.com/Dekorly®-Artificial-Eucalyptus-Houseplants-Farmhouse/dp/B0BCKLM33P?th=1",
+    "https://i.postimg.cc/0NcQRdP5/93-Photo-Room.png": "https://www.ebay.com/itm/134233502703",
+    "https://i.postimg.cc/yxwxp1BF/94-jpg-Photo-Room.png": "https://www.amazon.eg/-/en/Eyand-Artificial-Plastic-Topiary-Decoration/dp/B08F1W1581",
+    "https://i.postimg.cc/sDhvQh9K/95-jpg-Photo-Room.png": "https://www.amazon.com/WHW-Whole-House-Worlds-Houseplant/dp/B074RLS45W",
+    "https://i.postimg.cc/Dw3mqwxh/96-Photo-Room.png": "https://www.plantjungle.com/product/croton/",
+    "https://i.postimg.cc/G3N4mQYH/97-jpg-Photo-Room.png": "https://www.amazon.com/Philodendron-Cordatum-Grower-Pot-Houseplants/dp/B0B9GD1BHK",
+    "https://i.postimg.cc/V6vNYrkq/98-jpg-Photo-Room.png": "https://www.amazon.com/CATTREE-Artificial-Hanging-Greenery-Resistant/dp/B09573M6SX",
+    "https://i.postimg.cc/Vk9v4PhC/99-Photo-Room.png": "https://www.ashleyfurniture.com/p/ficus_tree_in_pot/A600021229.html",
+    "https://i.postimg.cc/hv7Pdkxh/100-jpg-Photo-Room.png" : "https://www.amazon.com/EPESTOEC-Artificial-Plastic-Nursery-Indoor-Outdoor/dp/B00NEYW8YK",
+
+    "https://i.postimg.cc/024mwvwd/101-Photo-Room.png": "https://www.amazon.com/Vaguelly-Artificial-Decoration-Realistic-Desktop/dp/B0B1V72MRC",
+    "https://i.postimg.cc/g2RwLZdm/102-jpg-Photo-Room.png": "https://www.amazon.com/Cabilock-Artificial-Simulated-Imitated-Arrangement/dp/B08MTV8T8Y",
+    "https://i.postimg.cc/zvBby2Dc/103-jpg-Photo-Room.png": "https://www.amazon.com/ALICESGARDEN-Automatic-Dimmable-Detachable-Adjustable/dp/B0C2VRYB92",
+    "https://i.postimg.cc/jjbDHSdN/104-jpg-Photo-Room.png": "https://www.amazon.com/Artificial-Lifelike-Tropical-Houseplant-Decoration/dp/B09NY32TJC?th=1",
+    "https://i.postimg.cc/1zrfJ1fd/105-jpg-Photo-Room.png": "https://www.amazon.com/Magnolia-Artificial-Branches-Printing-Houseplant/dp/B09PG33YWY",
+    "https://i.postimg.cc/QxFKszyB/106-Photo-Room.png": "https://www.amazon.com/Garneck-Miniature-Coconut-Plastic-Decoartion/dp/B08YNFW1R3",
+    "https://i.postimg.cc/tRSnKb2Q/107-jpg-Photo-Room.png": "https://www.amazon.com/Realistic-Harland-Boxwood-Houseplant-Pebbles/dp/B09BDN2TRJ",
+    "https://i.postimg.cc/HnhJX0Vs/108-jpg-Photo-Room.png": "https://www.amazon.com/Artificial-Flytrap-Florals-Crafting-Decorating/dp/B01N3BVRP5",
+    "https://i.postimg.cc/m2KzrSvm/109-jpg-Photo-Room.png": "https://www.amazon.com/Velener-Artificial-Potted-Green-Plant/dp/B07MPNHJRF",
+    "https://i.postimg.cc/QtNVzY7d/110-jpg-Photo-Room.png": "https://www.amazon.com/Artificial-Shrubs-Simulation-Greenery-Decorations/dp/B0BZP55VBD",
+
+    "https://i.postimg.cc/QNq4Tfhx/111-jpg-Photo-Room.png": "https://www.amazon.com/Houseables-Artificial-Tropical-Lutenscens-Weddings/dp/B09H3N7LWS",
+    "https://i.postimg.cc/MKKsb1p0/112-jpg-Photo-Room.png": "https://www.amazon.com/Yoratee-Artificial-Bathroom-Tabletop-Colorful/dp/B0BJ6JTWJH?th=1",
+    "https://i.postimg.cc/NMcDyHnH/113-jpg-Photo-Room.png": "https://www.amazon.com/Hollyone-Artificial-Paradise-Tropical-Decoration/dp/B0BGPF6L7K",
+    "https://i.postimg.cc/zvDk718D/114-jpg-Photo-Room.png": "https://www.amazon.com/-/es/artificiales-vegetación-decoración-habitación-escritorio/dp/B0BCHQPKH3",
+    "https://i.postimg.cc/7Z5mjD7f/115-Photo-Room.png": "https://us.amazon.com/CURTEK-Bundles-Outdoor-Resistant-Artificial/dp/B0C57J9ZR9",
+    "https://i.postimg.cc/JzSPLgcK/116-jpg-Photo-Room.png": "https://www.amazon.com/Artificial-Eucalyptus-Rosemary-Houseplants-Decoration/dp/B08HH911TN",
+    "https://i.postimg.cc/ydyP0Nqr/117-jpg-Photo-Room.png": "https://www.amazon.com/OFFIDIX-Artificial-Greenery-Houseplants-Decoration/dp/B091BQGDFN",
+    "https://i.postimg.cc/WbW59tdB/118-jpg-Photo-Room.png": "https://www.amazon.com/Rozwkeo-Artificial-Decoration-Japanese-Windowsill/dp/B08ZLLR7LB",
+    "https://i.postimg.cc/9fT1FpL2/119-jpg-Photo-Room.png": "https://www.amazon.com/Svenee-Artificial-Greenery-Bathroom-Decorations/dp/B07XHWF9RS",
+    "https://i.postimg.cc/ZnfxDD58/120-jpg-Photo-Room.png": "https://www.amazon.com/Artificial-Plastic-Rosemary-Houseplants-Greenery/dp/B08LQQ5ZWQ",
+    
+    "https://i.postimg.cc/43Bv3Spr/121-jpg-Photo-Room.png": "https://www.amazon.com/Winlyn-Artificial-Eucalyptus-Succulent-Windowsill/dp/B0B8RC9SH2",
+    "https://i.postimg.cc/fW6PZVzY/122-jpg-Photo-Room.png": "https://www.amazon.com/BESPORTBLE-Artificial-Gladiolus-Bonsai-Potted/dp/B08R78VC8Z",
+    "https://i.postimg.cc/pybz7btn/123-jpg-Photo-Room.png": "https://www.amazon.com/WYSRJ-Artificial-Potted-Eucalyptus-Decoration/dp/B09F8Y2VL4",
+    "https://i.postimg.cc/HkmPcF7x/124-jpg-Photo-Room.png": "https://www.amazon.com/JPSOR-Artificial-Plastic-Outdoor-Bedroom/dp/B09N6NXNGW",
+    "https://i.postimg.cc/PrYRqdJ9/125-Photo-Room.png": "https://www.amazon.com/l2b-Artificial-Lavender-Square-Wooden/dp/B07Z8LDDZS?th=1",
+    "https://i.postimg.cc/T2ysZV6R/126-Photo-Room.png": "https://www.amazon.com/Vintage-Home-Artificial-Small-Planter/dp/B0C5RWJJ1F",
+
+
+    };
+
+
+    function adjustRoomSize() {
+      var lengthInput = document.getElementById("length");
+      var widthInput = document.getElementById("width");
+      var room = document.getElementById("room");
+
+      var lengthInPixels = parseInt(lengthInput.value) * 4;
+      var widthInPixels = parseInt(widthInput.value) * 4;
+
+      room.style.width = lengthInPixels + "px";
+      room.style.height = widthInPixels + "px";
+    }
+
+    function decorateRoom(mode) {
+      var imageContainer = document.getElementById("imageContainer");
+      imageContainer.innerHTML = ""; // Clear previous images
+
+      var imagePaths = Object.keys(prices);
+
+      var category1 = imagePaths.slice(0, 11);
+      var category2 = imagePaths.slice(11, 26);
+      var category3 = imagePaths.slice(26, 51);
+      var category4 = imagePaths.slice(51, 58);
+      var category5 = imagePaths.slice(58, 63);
+      var category6 = imagePaths.slice(63, 83); 
+      var category7 = imagePaths.slice(83, 92); 
+      var category8 = imagePaths.slice(92, 117); 
+      var category9 = imagePaths.slice(117, 120); 
+      var category10 = imagePaths.slice(120, 123); 
+      var category11 = imagePaths.slice(123, 127); 
+      var category12 = imagePaths.slice(127, 130); 
+      var category13 = imagePaths.slice(130, 165);
+
+      var category14 = imagePaths.slice(0, 26); 
+      var category15 = imagePaths.slice(26, 58); 
+      var category16 = imagePaths.slice(58, 83); 
+      var category17 = imagePaths.slice(83, 117); 
+      var category18 = imagePaths.slice(117, 123); 
+      var category19 = imagePaths.slice(123, 130); 
+
+      var category20 = imagePaths.slice(166, 167) //dark floor
+      var category21 = imagePaths.slice(167, 168) //light floor
+      var category22 = imagePaths.slice(168, 169) //light walls
+      var category23 = imagePaths.slice(169, 170) //dark walls
+      var category24 = imagePaths.slice(166, 168) //floors
+      var category25 = imagePaths.slice(168, 170) //walls
+
+      var category36 = imagePaths.slice(170, 208) //transitional sofa
+      var category37 = imagePaths.slice(208, 308)
+      var category38 = imagePaths.slice(308, 339)
+      var category39 = imagePaths.slice(339, 438)
+      var category40 = imagePaths.slice(438, 480)
+      var category41 = imagePaths.slice(480, 522)
+
+
+      var selectedImage1, selectedImage2, selectedImage3, selectedImage4, selectedImage5, selectedImage6, selectedImage7;
+
+      if (mode === 'light') {
+        selectedImage1 = getRandomElement(category1);
+        selectedImage2 = getRandomElement(category3);
+        selectedImage3 = getRandomElement(category5);
+        selectedImage4 = getRandomElement(category7);
+        selectedImage5 = getRandomElement(category9);
+        selectedImage6 = getRandomElement(category11);
+        selectedImage7 = getRandomElement(category13);
+        selectedImage8 = getRandomElement(category21);
+        selectedImage9 = getRandomElement(category22);
+
+      } 
+      else if (mode === 'dark') {
+        selectedImage1 = getRandomElement(category2);
+        selectedImage2 = getRandomElement(category4);
+        selectedImage3 = getRandomElement(category6);
+        selectedImage4 = getRandomElement(category8);
+        selectedImage5 = getRandomElement(category10);
+        selectedImage6 = getRandomElement(category12);
+        selectedImage7 = getRandomElement(category13);
+        selectedImage8 = getRandomElement(category20);
+        selectedImage9 = getRandomElement(category23);
+
+      } 
+      else if (mode === 'decorate') {
+        selectedImage1 = getRandomElement(category14);
+        selectedImage2 = getRandomElement(category15);
+        selectedImage3 = getRandomElement(category16);
+        selectedImage4 = getRandomElement(category17);
+        selectedImage5 = getRandomElement(category18);
+        selectedImage6 = getRandomElement(category19);
+        selectedImage7 = getRandomElement(category13);
+        selectedImage8 = getRandomElement(category24);
+        selectedImage9 = getRandomElement(category25);
+      }
+      else if (mode === 'transitional') {
+        selectedImage1 = getRandomElement(category36);
+        selectedImage2 = getRandomElement(category37);
+        selectedImage3 = getRandomElement(category38);
+        selectedImage4 = getRandomElement(category39);
+        selectedImage5 = getRandomElement(category40);
+        selectedImage6 = getRandomElement(category41);
+        selectedImage7 = getRandomElement(category13);
+        selectedImage8 = getRandomElement(category24);
+        selectedImage9 = getRandomElement(category25);
+      }
+
+
+      
+
+      //walls
+     var img9 = createImageElement(selectedImage9, "1000px", "1000px");
+     img9.classList.add("room-group");
+     imageContainer.appendChild(img9); 
+
+      //floors 
+     var img8 = createImageElement(selectedImage8, "1000px", "1000px");
+     img8.classList.add("room-group");
+     imageContainer.appendChild(img8);  
+
+     var windowHeight = window.innerHeight;
+
+// Carpets
+var img5 = createImageElement(selectedImage5, "288px", "432px"); 
+      img5.style.left = "50%"; 
+      img5.style.transform = "translate(-50%)";  
+      img5.classList.add("room-group");
+      imageContainer.appendChild(img5);
+
+      //curtains   
+      var img6 = createImageElement(selectedImage6, "168px", "252px");
+      img6.classList.add("room-group");
+      imageContainer.appendChild(img6);
+
+      // Get room height
+      var roomHeight = room.clientHeight;
+      // Calculate y offset at 50% room height 
+      var yOffset = roomHeight * 0.0; 
+      // Create painting image
+      var img4 = createImageElement(selectedImage4, "96px", "144px");
+      // Position at 50% offset
+      img4.style.transform = `translateY(${yOffset}px)`;  
+      img4.classList.add("room-group");
+      imageContainer.appendChild(img4);
+     
+      //sofas 
+      var img1 = createImageElement(selectedImage1, "348px", "135.6px");
+      img1.style.left = "50%";
+      img1.style.transform = "translateX(-50%)";
+      img1.classList.add("room-group");
+      imageContainer.appendChild(img1);
+
+      //chairs  
+      var roomHeight = room.clientHeight;
+      var yOffset = roomHeight * 0.2;
+      var img2 = createImageElement(selectedImage2, "124px", "112px");
+      img2.style.transform = `translateY(${yOffset}px)`;
+      img2.classList.add("room-image");
+      imageContainer.appendChild(img2);
+
+      //flipped Image
+      var roomHeight = room.clientHeight;
+      var yOffset = roomHeight * 0.2;
+      var flippedImg2 = createFlippedImage(selectedImage2);
+      flippedImg2.style.transform = `translateY(${yOffset}px) scaleX(-1)`; 
+      flippedImg2.classList.add("room-image");
+      imageContainer.appendChild(flippedImg2);
+      var roomWidth = document.getElementById("room").clientWidth;
+
+
+// Get room width  
+var roomWidth = room.clientWidth;
+// Create table image
+var img3 = createImageElement(selectedImage3, "154.4px", "88px");
+// Center horizontally
+img3.style.left = `${roomWidth/2.7}px`;
+// Add to room
+img3.classList.add("room-group");
+imageContainer.appendChild(img3);
+    
+
+      // Houseplants 
+      var roomHeight = room.clientHeight; 
+      var yOffset = roomHeight * 0.3;
+
+      var img7 = createImageElement(selectedImage7, "72px", "288px");
+      img7.style.transform = `translateY(${yOffset}px)`;
+      img7.classList.add("room-group");
+      imageContainer.appendChild(img7);   
+      
+
+      function createFlippedImage(src) {
+        var img = createImageElement(src, "124px", "112px");
+        img.classList.add("room-image");
+        img.style.transform = "scaleX(-1)";
+  
+        // Add flipped attribute
+        img.setAttribute('data-flipped', 'true');
+        
+        return img;
+      }
+
+      var totalPrice = prices[selectedImage1] + prices[selectedImage2] + prices[selectedImage3] + prices[selectedImage4] + prices[selectedImage5] + prices[selectedImage6] + prices[selectedImage7];
+      var totalPriceElement = document.getElementById("totalPrice");
+      totalPriceElement.textContent = "Total Price: $" + totalPrice.toFixed(2);
+    
+      var linkElement = document.createElement("a");
+      linkElement.href = prices[selectedImage1].link; 
+      linkElement.textContent = prices[selectedImage1].link;
+      document.body.appendChild(linkElement);
+    }
+
+    function getRandomElement(array) {
+      var randomIndex = Math.floor(Math.random() * array.length);
+      return array[randomIndex];
+    }
+
+    function handleImageClick(event) {
+      var img = event.target;
+  
+      if (img.tagName === 'IMG') {
+        var imgSrc = img.src;
+        var url = siteMap[imgSrc];
+        
+        if (url) {
+          window.open(url);
+        }
+      }
+    }
+  
+    imageContainer.addEventListener('dblclick', handleImageClick);
+
+
+    function createImageElement(src, width, height) {
+      var img = document.createElement("img");
+      img.src = src;
+      img.classList.add("room-image");
+      img.style.width = width;
+      img.style.height = height;
+      return img;
+    }
+
+    function addImage(src) {
+      var img = createImageElement(src);
+      
+      // set initial size
+      img.style.width = '200px';
+      img.style.height = '150px';
+
+      // set initial position
+      img.style.transform = 'translate(100px, 100px)';
+
+      // set data attributes
+      img.setAttribute('data-x', 100);
+      img.setAttribute('data-y', 100);
+
+      imageContainer.appendChild(img);
+    }
+
+
+    // New function to duplicate and flip an image
+function duplicateAndFlipImage(src) {
+  var img = createImageElement(src, "124px", "112px");
+  img.classList.add("room-image");
+  
+  var flippedImg = createImageElement(src, "124px", "112px");
+  flippedImg.style.transform = "scaleX(-1)";
+  
+  return [img, flippedImg];
+}
+
+
+    // Helper functions
+    function flipImages(imagePaths) {
+      return imagePaths.map(path => {
+        return path.replace('.png', '-flipped.png'); 
+      });
+    }
+
+    function createFlippedImage(src) {
+      var img = createImageElement(src, "124px", "112px");
+      img.classList.add("room-image");
+      img.style.transform = "scaleX(-1)";
+      return img;
+    }
+
+        modifiers: [
+          // keep inside parent
+          interact.modifiers.restrictEdges({
+            outer: 'parent'
+          }),
+
+          // minimum size
+          interact.modifiers.restrictSize({
+            min: { width: 100, height: 50 }  
+          })
+        ]
+                
+  </script>
+</body>
+</html>
