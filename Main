@@ -120,15 +120,6 @@
       left: 40%;
     }
 
-    /* house plants */
-    .room-group:nth-child(10) {
-      width: 271px;
-      height: 132px;
-      top: 0%;
-      left: 77%;
-    }
-
-
 
     #totalPrice {
       margin-bottom: 10px;
@@ -297,14 +288,14 @@
       "https://i.postimg.cc/Gpf5QMKC/90-Photo-Room.png" : 17.49, 
 
       //light carpets 
-      "https://m.media-amazon.com/images/I/912EmcCjVqL._AC_SL1500_.jpg" : 44.99,  
-      "https://m.media-amazon.com/images/I/A1mMQ4ru2ZL._AC_SL1500_.jpg" : 50.14, 
-      "https://m.media-amazon.com/images/I/916b8GBKW6L._AC_SL1500_.jpg" : 61.59, 
+      "https://i.postimg.cc/2SWFpYGg/912-Emc-Cj-Vq-L-Photo-Room.png" : 44.99,  
+      "https://i.postimg.cc/SNFcW3kr/A1m-MQ4ru2-ZL-Photo-Room.png" : 50.14, 
+      "https://i.postimg.cc/bwYDgjMQ/916b8-GBKW6-L-Photo-Room.png" : 61.59, 
 
       //dark carpets 
-      "https://m.media-amazon.com/images/I/A1RLNleVxiL._AC_SL1500_.jpg" : 160.00, 
-      "https://m.media-amazon.com/images/I/A1V-JFuZB5L._AC_SL1500_.jpg" : 65.99, 
-      "https://m.media-amazon.com/images/I/81lC5sskpbL._AC_SL1500_.jpg" : 79.99, 
+      "https://i.postimg.cc/9FLFWw87/A1-RLNle-Vxi-L-AC-SL1500-3-Photo-Room.png" : 160.00, 
+      "https://i.postimg.cc/ZK22FT0Q/A1-V-JFu-ZB5-L-AC-SL1500-2-Photo-Room.png" : 65.99, 
+      "https://i.postimg.cc/yxBYNmCF/81l-C5sskpb-L-AC-SL1500-3-Photo-Room.png" : 79.99, 
 
       //light curtains 
       "https://i.postimg.cc/SRsVfpfL/127-Photo-Room.png" : 47.05, 
@@ -514,38 +505,30 @@
     "https://i.postimg.cc/x1GwCZtH/wythe-leather-chair6-Photo-Room.png":2299.00,
 
     //transitional tables 
-      "https://i.postimg.cc/0NH849M7/Baja-Console-Tbl-Nat-SOSSS22-Photo-Room.png": 799.00, 
-      "https://i.postimg.cc/vBgQFCfk/baja-grey-rectangular-coffee-table-Photo-Room.png": 699.00, 
-       "https://i.postimg.cc/tTK9XDzT/baja-natural-rectangular-coffee-table-Photo-Room.png": 799.00,
-       "https://i.postimg.cc/fTjMNcSz/bomen-black-oak-console-table-Photo-Room.png": 1599.00,   
-       "https://i.postimg.cc/Prkd93xV/damen-marble-coffee-table-with-black-base-Photo-Room.png": 1699.00,
-       "https://i.postimg.cc/YCrMqvQ1/dillon-spalted-primavera-round-wood-coffee-table-Photo-Room.png": 1899.00,
-       "https://i.postimg.cc/vZ0M1GvC/echelon-console-table-Photo-Room.png": 499.00,
-       "https://i.postimg.cc/LshSLGC5/fernando-metal-drum-coffee-table-Photo-Room.png": 899.00,
-       "https://i.postimg.cc/C1qV6kVV/fernando-round-Photo-Room.png": 299.00,
-       "https://i.postimg.cc/BbfGWbqP/homage-round-white-oak-wood-and-marble-coffee-table-Photo-Room.png": 1099.00,
-       "https://i.postimg.cc/Vv9Pzw6G/intarsia-natural-console-table-Photo-Room.png": 1499.00,
-       "https://i.postimg.cc/ZY6S88c8/meadow-grasscloth-coffee-table-Photo-Room.png": 1099.00,
-       "https://i.postimg.cc/4NZTBYLr/nero-white-marble-accent-table-Photo-Room.png": 299.00,
-       "https://i.postimg.cc/rFJ2bq7z/oro-natural-walnut-wood-tiered-side-table-Photo-Room.png": 599.00,
-       "https://i.postimg.cc/GmmnnZ1K/pebble-white-concrete-coffee-table-by-leanne-ford-Photo-Room.png": 999.00,
-       "https://i.postimg.cc/0yXRkcks/prost-small-metal-drink-table-Photo-Room.png": 159.00,
-       "https://i.postimg.cc/LsqdnL5Z/sassolino-burl-wood-side-table-by-athena-calderone-Photo-Room.png": 599.00,
-       "https://i.postimg.cc/Pq0gZJvV/sassolino-concrete-and-burl-wood-coffee-table-by-athena-calderone-Photo-Room.png": 1599.00,
-       "https://i.postimg.cc/LXfrVSz9/silviano-84-iron-console-table-Photo-Room.png": 1499.00,
-       "https://i.postimg.cc/kGmL1Hcx/terra-rctngl-cfe-tbl-natural-Photo-Room.png": 999.00,
-       "https://i.postimg.cc/kGmL1Hcx/terra-rctngl-cfe-tbl-natural-Photo-Room.png": 1299.00,
-       "https://i.postimg.cc/XqkmTgHt/troupe-rectangular-pine-coffee-table-Photo-Room.png": 1199.00,
-       "https://i.postimg.cc/dQ2bkqsn/troupe-round-coffee-table-Photo-Room.png": 1899.00,
-       "https://i.postimg.cc/zXq9T93N/troupe-square-coffee-table-Photo-Room.png": 1499.00,
-       "https://i.postimg.cc/qMQWwjC3/valo-72-pine-wood-console-table-Photo-Room.png": 1499.00,
-       "https://i.postimg.cc/8z09Qc4k/vander-natural-wood-end-table-Photo-Room.png": 499.00,
-       "https://i.postimg.cc/kg4zpKxh/vander-rectangular-natural-wood-coffee-table-Photo-Room.png": 999.00,
-       "https://i.postimg.cc/nL95HxS4/vernon-natural-72-console-table-Photo-Room.png": 1399.00,
-       "https://i.postimg.cc/tT0cJc8L/vernon-natural-wood-side-table-with-shelf-Photo-Room.png": 499.00,
-       "https://i.postimg.cc/4dzS95gn/vernon-rctng-cfetbl-nt-nonfsc-Photo-Room.png": 1399.00,
-       "https://i.postimg.cc/Bb4wcKSp/willy-charcoal-pedestal-coffee-table-Photo-Room.png": 999.00,
-       "https://i.postimg.cc/NFDCNjLc/willy-charcoal-pedestal-side-table-Photo-Room.png": 399.00,
+  "https://i.postimg.cc/0NH849M7/Baja-Console-Tbl-Nat-SOSSS22-Photo-Room.png": 1249.00,
+  "https://i.postimg.cc/vBgQFCfk/baja-grey-rectangular-coffee-table-Photo-Room.png": 699,
+  "https://i.postimg.cc/tTK9XDzT/baja-natural-rectangular-coffee-table-Photo-Room.png": 799,
+  "https://i.postimg.cc/fTjMNcSz/bomen-black-oak-console-table-Photo-Room.png": 1599.00,
+  "https://i.postimg.cc/Prkd93xV/damen-marble-coffee-table-with-black-base-Photo-Room.png": 1699.00,
+  "https://i.postimg.cc/YCrMqvQ1/dillon-spalted-primavera-round-wood-coffee-table-Photo-Room.png": 1899,
+  "https://i.postimg.cc/vZ0M1GvC/echelon-console-table-Photo-Room.png": 499,
+  "https://i.postimg.cc/LshSLGC5/fernando-metal-drum-coffee-table-Photo-Room.png": 899,
+  "https://i.postimg.cc/BbfGWbqP/homage-round-white-oak-wood-and-marble-coffee-table-Photo-Room.png": 1099,
+  "https://i.postimg.cc/Vv9Pzw6G/intarsia-natural-console-table-Photo-Room.png": 1499,
+  "https://i.postimg.cc/ZY6S88c8/meadow-grasscloth-coffee-table-Photo-Room.png": 1099,
+  "https://i.postimg.cc/GmmnnZ1K/pebble-white-concrete-coffee-table-by-leanne-ford-Photo-Room.png": 999,
+  "https://i.postimg.cc/Pq0gZJvV/sassolino-concrete-and-burl-wood-coffee-table-by-athena-calderone-Photo-Room.png": 1599,
+  "https://i.postimg.cc/LXfrVSz9/silviano-84-iron-console-table-Photo-Room.png": 1499,
+  "https://i.postimg.cc/kGmL1Hcx/terra-rctngl-cfe-tbl-natural-Photo-Room.png": 999,
+  "https://i.postimg.cc/kGmL1Hcx/terra-rctngl-cfe-tbl-natural-Photo-Room.png": 1299,
+  "https://i.postimg.cc/XqkmTgHt/troupe-rectangular-pine-coffee-table-Photo-Room.png": 1199,
+  "https://i.postimg.cc/dQ2bkqsn/troupe-round-coffee-table-Photo-Room.png": 1899,
+  "https://i.postimg.cc/zXq9T93N/troupe-square-coffee-table-Photo-Room.png": 1499,
+  "https://i.postimg.cc/qMQWwjC3/valo-72-pine-wood-console-table-Photo-Room.png": 1499,
+  "https://i.postimg.cc/kg4zpKxh/vander-rectangular-natural-wood-coffee-table-Photo-Room.png": 999,
+  "https://i.postimg.cc/nL95HxS4/vernon-natural-72-console-table-Photo-Room.png": 1399,
+  "https://i.postimg.cc/4dzS95gn/vernon-rctng-cfetbl-nt-nonfsc-Photo-Room.png": 1399,
+  "https://i.postimg.cc/Bb4wcKSp/willy-charcoal-pedestal-coffee-table-Photo-Room.png": 999,
 
        //transitional paintings 
        "https://i.postimg.cc/h4QBwwn0/abstract-large-framed-wall-art-Photo-Room.png": 329.00,
@@ -735,6 +718,51 @@
 "https://i.postimg.cc/wB6fcSwk/warm-beige-european-flax-certified-linen-window-curtain-panel-Photo-Room.png": 129.95,
 "https://i.postimg.cc/50ysD8dY/warm-beige-merrow-stitch-organic-cotton-window-curtain-panel-Photo-Room.png": 219.95,
 "https://i.postimg.cc/BQKVq582/warm-natural-cotton-velvet-curtain-panels-Photo-Room.png": 109.95,
+
+//transitional plants 
+"https://i.postimg.cc/cHCfcxSq/27-faux-large-leaf-philodendron-plant-Photo-Room.png": 89.95,
+"https://i.postimg.cc/HLZ6mPWg/42-faux-dieffenbachia-plant-Photo-Room.png": 119,
+"https://i.postimg.cc/X7LFtBYM/Paradise-Palm5ft-ROS20-Photo-Room.png": 149,
+"https://i.postimg.cc/YqKbtF7h/52-faux-large-leaf-philodendron-plant-Photo-Room.png": 159.95,
+"https://i.postimg.cc/mDKVzzFp/emlyn-basket-and-faux-olive-tree-7-arrangement-Photo-Room.png": 518,
+"https://i.postimg.cc/s2DTtRrm/Banana-Tree6-Foot-ROS20-Photo-Room.png": 299,
+"https://i.postimg.cc/vB43ZLD6/artificial-bird-of-paradise-tree-Photo-Room.png": 299,
+"https://i.postimg.cc/HW76G2fq/faux-ficus-tree-9-Photo-Room.png": 549,
+"https://i.postimg.cc/mgTjHGt4/faux-fiddle-leaf-fig-trees-Photo-Room.png": 329,
+"https://i.postimg.cc/Ghthh4jn/potted-succulents-s-4-Photo-Room.png": 39.95,
+"https://i.postimg.cc/RZbtZrtX/pencil-succulent-Photo-Room.png": 49.95,
+"https://i.postimg.cc/XJ9BLpzz/potted-faux-agave-sisal-plant-Photo-Room.png": 149,
+"https://i.postimg.cc/3NHmQgGh/large-potted-grass-Photo-Room.png": 79.95,
+"https://i.postimg.cc/qv97FpyV/potted-greenery-Photo-Room.png": 69.95,
+"https://i.postimg.cc/gkV4j0c4/artificial-potted-jade-plant-Photo-Room.png": 59.95,
+"https://i.postimg.cc/Hsg4qC0M/faux-potted-monstera-Photo-Room.png": 99.95,
+"https://i.postimg.cc/4d1NntMs/potted-moss-Photo-Room.png": 19.95,
+"https://i.postimg.cc/fLsRw588/potted-succulent-trio-Photo-Room.png": 39.95,
+"https://i.postimg.cc/Dz8qrfh9/faux-silver-dollar-eucalyptus-trees-Photo-Room.png": 399,
+"https://i.postimg.cc/85TT8cC3/snake-plant-in-pot-Photo-Room.png": 59.95,
+"https://i.postimg.cc/Y09k9PYz/succulents-in-a-pot-Photo-Room.png": 49.95,
+"https://i.postimg.cc/gkxmbfYY/succulents-in-low-round-pot-Photo-Room.png": 49.95,
+"https://i.postimg.cc/3RGmqLd9/faux-trailing-ficus-hanging-plant-in-pot-Photo-Room.png": 49.95,
+"https://i.postimg.cc/15dRgyWn/potted-zz-plant-Photo-Room.png": 199,
+"https://i.postimg.cc/0y5GNdB2/Large-Leaf-Philodendron27in-ROS20-Photo-Room.png": 109.95,
+"https://i.postimg.cc/fLSfNzgc/faux-potted-agave-Photo-Room.png": 129,
+"https://i.postimg.cc/G3JssTYB/potted-faux-fishtail-palm-tree-6-5-Photo-Room.png": 449,
+"https://i.postimg.cc/c4kCQRJJ/potted-golden-leaf-tree-7-Photo-Room.png": 369,
+"https://i.postimg.cc/hPDQ84b2/potted-faux-green-maple-tree-7-5-Photo-Room.png": 349,
+"https://i.postimg.cc/GmNB1F0f/potted-faux-olive-tree-9-Photo-Room.png": 599,
+"https://i.postimg.cc/wvY719jc/potted-faux-pencil-cactus-5-Photo-Room.png": 399,
+"https://i.postimg.cc/BZgXv99H/potted-faux-philodendron-24-Photo-Room.png": 119,
+
+//transitional side tables 
+"https://i.postimg.cc/C1qV6kVV/fernando-round-Photo-Room.png": 299,
+"https://i.postimg.cc/4NZTBYLr/nero-white-marble-accent-table-Photo-Room.png": 299,
+"https://i.postimg.cc/rFJ2bq7z/oro-natural-walnut-wood-tiered-side-table-Photo-Room.png": 599,
+"https://i.postimg.cc/8z09Qc4k/vander-natural-wood-end-table-Photo-Room.png": 499,
+"https://i.postimg.cc/0yXRkcks/prost-small-metal-drink-table-Photo-Room.png": 159,
+"https://i.postimg.cc/LsqdnL5Z/sassolino-burl-wood-side-table-by-athena-calderone-Photo-Room.png": 599,
+"https://i.postimg.cc/tT0cJc8L/vernon-natural-wood-side-table-with-shelf-Photo-Room.png": 499,
+"https://i.postimg.cc/NFDCNjLc/willy-charcoal-pedestal-side-table-Photo-Room.png": 399,
+
     };
 
     const siteMap = {
@@ -984,12 +1012,21 @@
       var category25 = imagePaths.slice(168, 170) //walls
 
       var category36 = imagePaths.slice(170, 208) //transitional sofa
-      var category37 = imagePaths.slice(208, 308)
-      var category38 = imagePaths.slice(308, 339)
-      var category39 = imagePaths.slice(339, 438)
-      var category40 = imagePaths.slice(438, 480)
-      var category41 = imagePaths.slice(480, 522)
+      var category37 = imagePaths.slice(208, 308) //transitional chair 
+      var category38 = imagePaths.slice(308, 331) //transitional table 
+      var category39 = imagePaths.slice(331, 430)
+      var category40 = imagePaths.slice(430, 472)
+      var category41 = imagePaths.slice(472, 514)
+      var category42 = imagePaths.slice(514, 546)
+      var category43 = imagePaths.slice(546)      //side tables 
 
+      var combinedCategory1 = category14.concat(category36);
+      var combinedCategory2 = category15.concat(category37);
+      var combinedCategory3 = category16.concat(category38);
+      var combinedCategory4 = category17.concat(category39);
+      var combinedCategory5 = category18.concat(category40);
+      var combinedCategory6 = category19.concat(category41);
+      var combinedCategory7 = category20.concat(category42);
 
       var selectedImage1, selectedImage2, selectedImage3, selectedImage4, selectedImage5, selectedImage6, selectedImage7;
 
@@ -1003,6 +1040,7 @@
         selectedImage7 = getRandomElement(category13);
         selectedImage8 = getRandomElement(category21);
         selectedImage9 = getRandomElement(category22);
+        selectedImage10 = getRandomElement(category43);
 
       } 
       else if (mode === 'dark') {
@@ -1015,18 +1053,21 @@
         selectedImage7 = getRandomElement(category13);
         selectedImage8 = getRandomElement(category20);
         selectedImage9 = getRandomElement(category23);
+        selectedImage10 = getRandomElement(category43);
 
       } 
       else if (mode === 'decorate') {
-        selectedImage1 = getRandomElement(category14);
-        selectedImage2 = getRandomElement(category15);
-        selectedImage3 = getRandomElement(category16);
-        selectedImage4 = getRandomElement(category17);
-        selectedImage5 = getRandomElement(category18);
-        selectedImage6 = getRandomElement(category19);
-        selectedImage7 = getRandomElement(category13);
+        selectedImage1 = getRandomElement(combinedCategory1);
+        selectedImage2 = getRandomElement(combinedCategory2);
+        selectedImage3 = getRandomElement(combinedCategory3);
+        selectedImage4 = getRandomElement(combinedCategory4);
+        selectedImage5 = getRandomElement(combinedCategory5);
+        selectedImage6 = getRandomElement(combinedCategory6);
+        selectedImage7 = getRandomElement(combinedCategory7);
         selectedImage8 = getRandomElement(category24);
         selectedImage9 = getRandomElement(category25);
+        selectedImage10 = getRandomElement(category43);
+        
       }
       else if (mode === 'transitional') {
         selectedImage1 = getRandomElement(category36);
@@ -1035,9 +1076,10 @@
         selectedImage4 = getRandomElement(category39);
         selectedImage5 = getRandomElement(category40);
         selectedImage6 = getRandomElement(category41);
-        selectedImage7 = getRandomElement(category13);
+        selectedImage7 = getRandomElement(category42);
         selectedImage8 = getRandomElement(category24);
         selectedImage9 = getRandomElement(category25);
+        selectedImage10 = getRandomElement(category43);
       }
 
 
@@ -1055,9 +1097,10 @@
 
      var windowHeight = window.innerHeight;
 
-// Carpets
-var img5 = createImageElement(selectedImage5, "288px", "432px"); 
+    // Carpets
+      var img5 = createImageElement(selectedImage5, "576px", "864px"); 
       img5.style.left = "50%"; 
+      img5.style.top = "27%";
       img5.style.transform = "translate(-50%)";  
       img5.classList.add("room-group");
       imageContainer.appendChild(img5);
@@ -1072,9 +1115,11 @@ var img5 = createImageElement(selectedImage5, "288px", "432px");
       // Calculate y offset at 50% room height 
       var yOffset = roomHeight * 0.0; 
       // Create painting image
-      var img4 = createImageElement(selectedImage4, "96px", "144px");
+      var img4 = createImageElement(selectedImage4, "144px", "216px");
       // Position at 50% offset
-      img4.style.transform = `translateY(${yOffset}px)`;  
+      img4.style.left = "20%"; 
+      img4.style.top = "17%";
+      img4.style.transform = "translate(-50%)";   
       img4.classList.add("room-group");
       imageContainer.appendChild(img4);
      
@@ -1084,6 +1129,14 @@ var img5 = createImageElement(selectedImage5, "288px", "432px");
       img1.style.transform = "translateX(-50%)";
       img1.classList.add("room-group");
       imageContainer.appendChild(img1);
+
+      //side tables
+      var img10 = createImageElement(selectedImage10, "188px", "108px");
+      img10.style.left = "20%"; 
+      img10.style.top = "50%";
+      img10.style.transform = "translate(-50%)";   
+      img10.classList.add("room-group");
+      imageContainer.appendChild(img10);
 
       //chairs  
       var roomHeight = room.clientHeight;
@@ -1103,25 +1156,24 @@ var img5 = createImageElement(selectedImage5, "288px", "432px");
       var roomWidth = document.getElementById("room").clientWidth;
 
 
-// Get room width  
-var roomWidth = room.clientWidth;
-// Create table image
-var img3 = createImageElement(selectedImage3, "154.4px", "88px");
-// Center horizontally
-img3.style.left = `${roomWidth/2.7}px`;
-// Add to room
-img3.classList.add("room-group");
-imageContainer.appendChild(img3);
+      // Get room width  
+      var roomWidth = room.clientWidth;
+      // Create table image
+      var img3 = createImageElement(selectedImage3, "188px", "108px");
+      img3.style.left = "50%"; 
+      img3.style.top = "60%";
+      img3.style.transform = "translate(-50%)"; 
+      // Add to room
+      img3.classList.add("room-group");
+      imageContainer.appendChild(img3);
+
     
-
       // Houseplants 
-      var roomHeight = room.clientHeight; 
-      var yOffset = roomHeight * 0.3;
-
-      var img7 = createImageElement(selectedImage7, "72px", "288px");
-      img7.style.transform = `translateY(${yOffset}px)`;
+      var img7 = createImageElement(selectedImage7, "96px", "84px");
+      img7.style.left = "85%"; 
+      img7.style.transform = "translate(-50%)";  
       img7.classList.add("room-group");
-      imageContainer.appendChild(img7);   
+      imageContainer.appendChild(img7); 
       
 
       function createFlippedImage(src) {
@@ -1230,7 +1282,7 @@ function duplicateAndFlipImage(src) {
             min: { width: 100, height: 50 }  
           })
         ]
-                
+        
   </script>
 </body>
 </html>
