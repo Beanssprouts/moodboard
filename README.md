@@ -27,5 +27,3 @@ lines 1190 - 1197 is the code for the pricing that is being displayed. Each imag
 lines 1200 - 1203 is randomization, this is what creates the random generation of each item in each category into the room. 
 
 The rest of the code is somewhat self explanitory from the comments and name of functions. They are all code that displays the images into the room 
-
-Hopefully this helps! 
